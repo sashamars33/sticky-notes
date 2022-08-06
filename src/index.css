@@ -86,6 +86,8 @@ html {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  border-bottom: solid 2px #f5f5f520;
+  padding: 2% 0; 
 }
 
 .headingUl li{
@@ -111,6 +113,7 @@ html {
   transform: none;
 }
 
+.newPageForm input,
 .newNoteForm input {
   font-family: inherit;
   font-size: .5rem;
@@ -122,6 +125,7 @@ html {
   color: #f5f5f590;
 }
 
+.newPageForm button,
 .newNoteForm button {
   font-family: inherit;
   font-size: 1.2rem;
@@ -133,9 +137,17 @@ html {
   transition: 150ms;
 }
 
+.newPageForm button:hover,
 .newNoteForm button:hover {
   color: #f5f5f550;
   transform: scale(1.2);
+}
+.noteFormContainer {
+  width: 50%;
+}
+.newNoteForm input{
+  width: 100%;
+  text-transform: none;
 }
 
 .pagesDisplay {
@@ -154,11 +166,96 @@ html {
   border-radius: 20px;
   padding: 7%;
   justify-content: space-around;
-  text-transform: capitalize;
+  align-items: flex-start;
+  text-transform: none;
+  flex-flow: row wrap;
 }
 
+.page span  {
+  text-align: left;
+}
+
+.pageTitle {
+  width: 70%;
+}
 
 .pageTitle:hover {
   color: #f5f5f570;
-  border-bottom: solid 2px;
+  text-decoration: underline;
+  cursor: pointer;
 }
+
+.page .deletePage:hover {
+  color: #f5f5f590;
+  transform: scale(1.2);
+}
+
+.trueExpand .notesContainer{
+  width: 100%;
+  height: 90vh;
+}
+.note {
+  font-size: .5rem;
+  border-radius: 20px;
+  width: 200px;
+  color: #050505;
+  background-color: rgb(255, 103, 103);
+}
+.note:hover {
+  cursor: grab;
+}
+
+.note .noteDelete:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  color: white;
+}
+
+
+.trueExpand {
+  background: #050505;
+  color: #f5f5f590;
+  position: absolute;
+  height: 100vh;
+  width: 90%;
+  margin: 0;
+  padding: 0;
+}
+.trueExpand .pageTitle:hover {
+  text-decoration: none;
+  transition: none;
+  cursor: default;
+  color: inherit;
+}
+
+.trueExpand .pageTitle {
+  text-align: right;
+  width: 40%;
+  padding-right: 2%;
+}
+
+.trueMinimize:hover {
+  cursor: pointer;
+  transform: scale(120%);
+  color: #f5f5f5;
+}
+
+.trueNewNotes,
+.trueNote,
+.trueMinimize,
+.trueDelete {
+  display: block;
+}
+
+.falseNewNotes,
+.falseNote,
+.falseMinimize,
+.falseDelete,
+.trueNewPageForm {
+  display: none;
+}
+
+
+/* .falseExpand {
+  display: none;
+} */
