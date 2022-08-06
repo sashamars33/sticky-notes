@@ -35,5 +35,4 @@ Page.propTypes = {
     title: PropTypes.string.isRequired
 }
 
-
 export default Page
