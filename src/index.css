@@ -113,8 +113,8 @@ html {
   transform: none;
 }
 
-.newPageForm input,
-.newNoteForm input {
+.newPageForm .input,
+.newNoteForm .input {
   font-family: inherit;
   font-size: .5rem;
   border-radius: 50px;
@@ -125,8 +125,8 @@ html {
   color: #f5f5f590;
 }
 
-.newPageForm button,
-.newNoteForm button {
+.newPageForm .button,
+.newNoteForm .button {
   font-family: inherit;
   font-size: 1.2rem;
   background: none;
@@ -137,8 +137,8 @@ html {
   transition: 150ms;
 }
 
-.newPageForm button:hover,
-.newNoteForm button:hover {
+.newPageForm .button:hover,
+.newNoteForm .button:hover {
   color: #f5f5f550;
   transform: scale(1.2);
 }

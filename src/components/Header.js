@@ -1,26 +1,46 @@
-import { FaMoon } from 'react-icons/fa'
+import {useState} from 'react'
 import { FaUserCircle } from 'react-icons/fa'
-import { FaCog  } from 'react-icons/fa'
-import { FaSun } from 'react-icons/fa'
 
-const Header = ({ pages }) => {
 
-pages = pages.map(page => page = page.selected)
 
-const show = pages.includes(true)
+const Header = ({ pages, onAdd }) => {
+
+const hidePages = pages.map(page => page = page.selected)
+
+
+const show = hidePages.includes(true)
+
+const [pageTitle, setPageTitle] = useState('')
+
+const onSubmit = (e) => {
+  const pagesLower = pages.map(page => page =  page.pageTitle.toLowerCase());
+
+  e.preventDefault();
+
+  if(!pageTitle){
+    alert('Please add a page title.')
+    return
+  }else if(pagesLower.includes(pageTitle.toLowerCase())){
+    alert('Page title already exists, please pick another title.')
+    return
+  }
+
+  console.log(pageTitle);
+  onAdd({pageTitle});
+
+  setPageTitle('')
+}
 
   return (
     <div className={`${show}NewPageForm`}>
       <h1 style={{padding: '0 0 5% 0', borderBottom: 'solid 2px #f5f5f520'}}>Sticky Notes</h1>
       <ul className={`flex headingUl`}>
-         <li><form action="../../../pages" method= "POST" className={`newPageForm flex`}>
-            <input type = "text" placeholder = "add a new page... " name = "pageTitle"></input>
-            <button type="submit">
-            +</button>
+         <li><form onSubmit={onSubmit} className={`newPageForm flex`}>
+            <input className="input" type = "text" placeholder = "add a new page... " value={pageTitle} onChange={(e) => setPageTitle(e.target.value)}></input>
+            <input className="button" type="submit" value="+">
+            </input>
 
           </form></li>
-        <li><FaMoon /></li>
-        <li><FaCog /></li>
         <li><FaUserCircle /></li>
       </ul>
     </div>

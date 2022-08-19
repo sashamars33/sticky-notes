@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import Header from './components/Header'
 import PagesDisplay from './components/PagesDisplay'
-import Page from './components/Page'
 
 
 function App() {
@@ -74,6 +73,38 @@ function App() {
     console.log(data)
   }
   
+ //Adds Page to Server
+ const addPage = async (page) => {
+  const res = await fetch(`http://localhost:3001/pages`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(page)
+  })
+
+  const data = await res.json();
+  console.log(data)
+  setPages([...pages, data]);
+}
+
+//Adds note to Server 
+const addNote = async (note) => {
+  console.log(note.note, note.pageTitle)
+  const res = await fetch(`http://localhost:3001/notes`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(note)
+  })
+
+  const data = await res.json();
+  console.log(data);
+  setNotes([...notes, data]);
+}
+
+
 
 
   //Updates page being minimized to the server
@@ -88,7 +119,6 @@ function App() {
     })
 
     const data = await res.json()
-    console.log(data);
     if(data === "Success"){
       setPages(
       pages.map(page => 
@@ -116,7 +146,6 @@ function App() {
         page._id === id ? {...page, selected: true } : {...page, selected: false }
       )
     )}
-    console.log(pages)
   }
 
   //Deletes a page and all of its notes
@@ -156,9 +185,16 @@ function App() {
 
   return (
     <div className="App">
-      <Header pages={pages} /> 
-      <PagesDisplay pages={pages} onDelete={deletePage} 
-      deleteNote={deleteNote}toExpand={toggleExpand} minimize={unExpand} notes={notes} trackPos={trackPos} updPos={updatePosition}/>
+      <Header onAdd={addPage} pages={pages} /> 
+      <PagesDisplay onAdd={addNote}
+      pages={pages} 
+      onDelete={deletePage} 
+      deleteNote={deleteNote}
+      toExpand={toggleExpand} 
+      minimize={unExpand} 
+      notes={notes} 
+      trackPos={trackPos} 
+      updPos={updatePosition}/>
     </div>
   );
 }

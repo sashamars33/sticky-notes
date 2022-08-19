@@ -4,7 +4,7 @@ import { FaMinus } from 'react-icons/fa'
 import NewNoteForm from './NewNoteForm'
 import Notes from './Notes'
 
-const Page = ({ title, onDelete, page, toExpand, minimize, notes, deleteNote, trackPos, updPos }) => {
+const Page = ({ title, onDelete, page, toExpand, minimize, notes, deleteNote, trackPos, updPos, onAdd }) => {
   
   notes = notes.filter(note => note.page === page.pageTitle)
 
@@ -14,14 +14,24 @@ const Page = ({ title, onDelete, page, toExpand, minimize, notes, deleteNote, tr
   return (
     <div className={`page ${page.selected}Expand`}>
       <section style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <NewNoteForm pageTitle={page.pageTitle} page={page}/>
-          <h2 className='pageTitle'onClick={() => toExpand(page._id)}>{title}</h2>
-          <span><FaTimes className={`deletePage ${!show}Delete`} onClick={() => onDelete(page._id, page.pageTitle)}/></span>
-          <span style={{justifySelf: 'flex-start'}}><FaMinus className={`${show}Minimize`}onClick={() => minimize(page._id)}/></span>
+          <NewNoteForm onAdd={onAdd} 
+          pageTitle={page.pageTitle} 
+          page={page}/>
+          <h2 className='pageTitle'
+          onClick={() => toExpand(page._id)}>{title}</h2>
+          <span><FaTimes className={`deletePage ${!show}Delete`} 
+          onClick={() => onDelete(page._id, page.pageTitle)}/></span>
+          <span style={{justifySelf: 'flex-start'}}><FaMinus className={`${show}Minimize`} 
+          onClick={() => minimize(page._id)}/></span>
       </section>
       <section className='notesContainer'>
         {notes.map((note) => (
-        <Notes key={note._id} note={note} deleteNote={deleteNote} trackPos={trackPos} updPos={updPos} page={page}/> ))}
+        <Notes key={note._id} 
+        note={note} 
+        deleteNote={deleteNote} 
+        trackPos={trackPos} 
+        updPos={updPos}
+         page={page}/> ))}
       </section>
     </div>
   )
