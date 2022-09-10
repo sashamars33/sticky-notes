@@ -1,10 +1,13 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
     <>
         <h1>Sticky Notes</h1>
         <p>Create personalized sticky-note boards where you can leave yourself importants notes, keep information, or whatever you like!</p>
+
+        <Link to='/signup'>Sign up here!</Link>
+        <Link to='/pages'>Go to Profile</Link> 
     </>
   )
 }

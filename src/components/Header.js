@@ -5,15 +5,14 @@ import { FaUserCircle } from 'react-icons/fa'
 
 const Header = ({ pages, onAdd }) => {
 
-const hidePages = pages.map(page => page = page.selected)
-
-
-const show = hidePages.includes(true)
-
 const [pageTitle, setPageTitle] = useState('')
 
+console.log(pages, pages.map(page => page.title.toLowerCase()))
+
+const pagesLower = pages.map(page => page.title.toLowerCase());
+
 const onSubmit = (e) => {
-  const pagesLower = pages.map(page => page =  page.pageTitle.toLowerCase());
+  // pages = pages.map(page => page.title.toLowerCase());
 
   e.preventDefault();
 
@@ -25,11 +24,14 @@ const onSubmit = (e) => {
     return
   }
 
-  console.log(pageTitle);
   onAdd({pageTitle});
 
   setPageTitle('')
 }
+
+pages = pages.map(page => page = page.selected)
+
+const show = pages.includes(true)
 
   return (
     <div className={`${show}NewPageForm`}>

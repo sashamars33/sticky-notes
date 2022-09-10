@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const NewNoteForm = ({ page, pageTitle, onAdd}) => {
+const NewNoteForm = ({ page, onAdd }) => {
 
     const show = page.selected === true ? true : false
 
@@ -14,7 +14,7 @@ const NewNoteForm = ({ page, pageTitle, onAdd}) => {
         return
       }
 
-      onAdd({note, pageTitle})
+      onAdd({note, page})
 
       setNote('')
     }
@@ -24,10 +24,11 @@ const NewNoteForm = ({ page, pageTitle, onAdd}) => {
     <div className={`noteFormContainer ${show}NewNotes`}>
         <form onSubmit={onSubmit}className='newNoteForm flex'>
             <input className="input" type = "text" placeholder = "add a new note... " value={note} onChange={(e) => setNote(e.target.value)}></input>
-            <input type = "text" name='page' readOnly value={pageTitle} className='hidden'></input>
-            <button className="hidden" type="submit">
-            </button>
+            <input type = "text" name='page' readOnly value={page._id} className='hidden'></input>
+            <input className="hidden" type="submit">
+            </input>
         </form>
+        {/* <span onClick = {() => minimize(page._id)}>Go back to Pages</span> */}
     </div>
   )
 }

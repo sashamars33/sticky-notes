@@ -1,219 +1,208 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from '../pages/Home'
 import {useState, useEffect} from 'react';
-import Header from './components/Header'
-import PagesDisplay from './components/PagesDisplay'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Navagation from './components/Navagation'
+import Pages from './pages/Pages'
+import Logout from './pages/Logout'
+
+
 
 
 function App() {
 
-//   //Different states set page data, note data, and note position data
-//   const [pages, setPages] = useState([]);
-//   const [notes, setNotes] = useState([]);
-//   const [position, setPosition] = useState({x: 0, y: 0, _id: ''});
+  //Different states set page data, note data, and note position data
+  const [pages, setPages] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [notePosition, setNotePosition] = useState({x: 0, y: 0});
+       
+       
+  //Sets pages from server
+  useEffect(() => {
+    const getPages = async () => {
+      const pagesFromServer = await fetchPages()
+      setPages(pagesFromServer.pages);
+    }
 
+    getPages();
+  }, []);
+       
+       
+  //Sets notes from server
+  useEffect(() => {
+    const getNotes = async () => {
+      const notesFromServer = await fetchNotes()
+      setNotes(notesFromServer.notes)
+    }
 
-//   //Sets pages from server
-//   useEffect(() => {
-//     const getPages = async () => {
-//       const pagesFromServer = await fetchPages()
-//       setPages(pagesFromServer);
-//     }
+    getNotes();
+  }, []);
+       
+       
+  //Gets pages from server
+  const fetchPages = async () => {
+    const res = await fetch('/pages')
+    const data = await res.json();
 
-//     getPages();
-//   }, []);
+    return data
+  }
+       
+       
+  //Gets Notes from server
+  const fetchNotes = async () => {
+    const res = await fetch('/pages/notes')
+    const data = await res.json();
 
-
-//   //Sets notes from server
-//   useEffect(() => {
-//     const getNotes = async () => {
-//       const notesFromServer = await fetchNotes()
-//       setNotes(notesFromServer)
-//     }
-
-//     getNotes();
-//   }, []);
-
-
-//   //Gets pages from server
-//   const fetchPages = async () => {
-//     const res = await fetch('http://localhost:3001/pages')
-//     const data = await res.json();
-
-//     console.log(data);
-//     return data
-//   }
-
-
-//   //Gets Notes from server
-//   const fetchNotes = async () => {
-//     const res = await fetch('http://localhost:3001/notes')
-//     const data = await res.json();
-//     console.log(data);
-//     return data
-//   }
-
-
-//   //Tracks position of notes on page so they remain in the same spot on reload
-//   const trackPos = (e, data, id) => {
-//       setPosition({x: data.x, y: data.y, _id: id}) 
-//   }
-
-//   const updatePosition = async (page, position, note) => {
-//     const res = await fetch(`http://localhost:3001/notes`,{
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ page: `${page}`,
-//         note: `${note}`,
-//         position: {
-//           x: position.x,
-//           y: position.y
-//         }})
-//     })
-
-//     const data = await res.json();
-//     console.log(data)
-//   }
+    return data
+  }
+       
+  const logout = async () => {
+    const res = await fetch('/logout')
+    const data = await res.json();
+    console.log(data)
+  }
+       
+  //  Tracks position of notes on page so they remain in the same spot on reload
+   const trackPos = (e, data) => {
+       setNotePosition({x: data.x, y: data.y})
+       console.log(notePosition)
+   }
   
-//  //Adds Page to Server
-//  const addPage = async (page) => {
-//   const res = await fetch(`http://localhost:3001/pages`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-type': 'application/json'
-//     },
-//     body: JSON.stringify(page)
-//   })
+   const updatePosition = async (position, note) => {
+     console.log(position, note._id)
+     const res = await fetch(`/pages/updatepos`,{
+       method: 'PUT',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({
+         noteId: note,
+         position: {
+           x: position.x,
+           y: position.y
+         }})
+     })
+  
+     const data = await res.json();
+     setNotePosition({x: data.x, y: data.y})
+   }
+   
+  //Adds Page to Server
+  const addPage = async (page) => {
+    console.log(page, 'creating page')
+   const res = await fetch(`/pages/createpage`, {
+     method: 'POST',
+     headers: {
+       'Content-type': 'application/json'
+     },
+     body: JSON.stringify(page)
+   })
+  
+   const data = await res.json();
+   setPages([...pages, data]);
+  }
+       
+  //Adds note to Server 
+  const addNote = async (note) => {
 
-//   const data = await res.json();
-//   console.log(data)
-//   setPages([...pages, data]);
-// }
+    console.log(note)
 
-// //Adds note to Server 
-// const addNote = async (note) => {
-//   console.log(note.note, note.pageTitle)
-//   const res = await fetch(`http://localhost:3001/notes`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-type': 'application/json'
-//     },
-//     body: JSON.stringify(note)
-//   })
-
-//   const data = await res.json();
-//   console.log(data);
-//   setNotes([...notes, data]);
-// }
-
-
-
-
-//   //Updates page being minimized to the server
-//   const unExpand = async (id) => {
-//     const page = pages.filter(page => page._id === id);
-//     const res = await fetch(`http://localhost:3001/pages`, {
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ _id: `${id}`,
-//       selected: false,
-//       pageTitle: page[0].pageTitle})
-//     })
-
-//     const data = await res.json()
-//     if(data === "Success"){
-//       setPages(
-//       pages.map(page => 
-//         page._id === id ? {...page, selected: false } : {...page, selected: false }
-//       )
-//     )}
-//   }
-
-//   //Updates page being expanded when selected to the server
-//   const toggleExpand = async (id) => {
-//     const page = pages.filter(page => page._id === id);
-//     const res = await fetch(`http://localhost:3001/pages`, {
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ _id: `${id}`,
-//       selected: true,
-//       pageTitle: page[0].pageTitle})
-//     })
-
-//     const data = await res.json()
-//     console.log(data);
-//     if(data === "Success"){
-//       setPages(
-//       pages.map(page => 
-//         page._id === id ? {...page, selected: true } : {...page, selected: false }
-//       )
-//     )}
-//   }
-
-//   //Deletes a page and all of its notes
-//   const deletePage = async (id, pageTitle) => {
-//     const response = await fetch(`http://localhost:3001/notes`, {
-//       method: 'DELETE',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ page: `${pageTitle}`,
-//     pageDeleted: true})
-//     })
-
-//     response.status === 200 ? console.log('Notes deleted') : console.log('error deleting notes');
-
-//     const res = await fetch(`http://localhost:3001/pages`, {
-//       method: 'DELETE',
-//       headers: { 'Content-Type': 'application/json'},
-//       body: JSON.stringify({ pageTitle: `${pageTitle}`})
-//     })
-
-//     res.status === 200
-//       ? setPages(pages.filter((page) => page._id !== id))
-//       : alert('Error Deleting This Task')
-//   }
-
-
-//   //Deletes a note
-//   const deleteNote = async (page, note, id) => {
-//     const res = await fetch(`http://localhost:3001/notes`, {
-//       method: 'DELETE',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({page: `${page}`, note: `${note}`, pageDeleted: false})
-//     })
-
-//     res.status === 200 ? setNotes(notes.filter(note => note._id !== id)) : alert('Error Deleting this Note')
-
-//   }
+    const res = await fetch(`/pages/createnote`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(note)
+    })
+  
+    const data = await res.json();
+    setNotes([...notes, data]);
+  }
+        
+       
+   //Updates page being minimized to the server
+   const unExpand = async (id) => {
+     const res = await fetch(`/pages/closepage`, {
+       method: 'PUT',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({ pageId: id})
+     })
+  
+     const data = await res.json()
+     if(data === true){
+       setPages(
+       pages.map(page => 
+         page._id === id ? {...page, selected: false } : {...page, selected: false }
+       )
+     )}
+   }
+       
+   //Updates page being expanded when selected to the server
+   const toggleExpand = async (id) => {
+     const res = await fetch(`/pages/select`, {
+       method: 'PUT',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({ pageId: id }, {
+       selected: true })
+     })
+  
+     const data = await res.json()
+     if(data === true){
+       setPages(
+       pages.map(page => 
+         page._id === id ? {...page, selected: true } : {...page, selected: false }
+       )
+     )}
+   }
+       
+   //Deletes a page and all of its notes
+   const deletePage = async (id) => {
+     const response = await fetch(`pages/deletepage`, {
+       method: 'DELETE',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({pageId: id})
+     })
+  
+     response.status === 200 ? console.log('Notes deleted') : console.log('error deleting notes');
+  
+     const res = await fetch(`/pages/deletenotes`, {
+       method: 'DELETE',
+       headers: { 'Content-Type': 'application/json'},
+       body: JSON.stringify({ pageId: id})
+     })
+  
+     res.status === 200
+       ? setPages(pages.filter((page) => page._id !== id))
+       : alert('Error Deleting This Task')
+   }
+  
+  
+   //Deletes a note
+   const deleteNote = async (id) => {
+    console.log(id)
+     const res = await fetch(`/pages/deletenote`, {
+       method: 'DELETE',
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify({noteId: id})
+     })
+  
+     console.log(res.status)
+     res.status === 200 ? setNotes(notes.filter(note => note._id !== id)) : alert('Error Deleting this Note')
+   }
+   
+   console.log(pages)
 
   return (
-
   <Router>
     <Navagation />
     <Routes>
         <Route path='/' exact element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/signin' element={<SignIn />} />
-        <Route path='/pages' element={<Pages />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand} logout={logout}/>} />
+        <Route path='/logout' element={<Logout />} />
+        {/* <Route path='/pages/notes' element={<Notes notes={notes} pages={pages} deleteNote={deleteNote} onAdd={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand}/>} /> */}
     </Routes>
-      
   </Router>
-
-
-
-
-
-    // <div className="App">
-    //   <Header onAdd={addPage} pages={pages} /> 
-    //   <PagesDisplay onAdd={addNote}
-    //   pages={pages} 
-    //   onDelete={deletePage} 
-    //   deleteNote={deleteNote}
-    //   toExpand={toggleExpand} 
-    //   minimize={unExpand} 
-    //   notes={notes} 
-    //   trackPos={trackPos} 
-    //   updPos={updatePosition}/>
-    // </div>
   );
 }
 
