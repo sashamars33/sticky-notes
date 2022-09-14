@@ -10,12 +10,14 @@ import Logout from './pages/Logout'
 
 
 
+
 function App() {
 
   //Different states set page data, note data, and note position data
   const [pages, setPages] = useState([]);
   const [notes, setNotes] = useState([]);
   const [notePosition, setNotePosition] = useState({x: 0, y: 0});
+  const [login, setLogin] = useState(false)
        
        
   //Sets pages from server
@@ -44,8 +46,13 @@ function App() {
   const fetchPages = async () => {
     const res = await fetch('/pages')
     const data = await res.json();
-
+    console.log(data)
+    if(data === false){
+      setLogin(false)
+    }else{
+    setLogin(true)
     return data
+    }
   }
        
        
@@ -189,16 +196,16 @@ function App() {
      res.status === 200 ? setNotes(notes.filter(note => note._id !== id)) : alert('Error Deleting this Note')
    }
    
-   console.log(pages)
+console.log(login)
 
   return (
-  <Router>
+  <Router forceRefresh={true}>
     <Navagation />
     <Routes>
-        <Route path='/' exact element={<Home />} />
+        <Route path='/' exact element={<Home login={login}/>} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand} logout={logout}/>} />
+        {login === false ? <Route path='/' exact element={<Home login={login}/>} /> : <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand} logout={logout}/>} />}
         <Route path='/logout' element={<Logout />} />
         {/* <Route path='/pages/notes' element={<Notes notes={notes} pages={pages} deleteNote={deleteNote} onAdd={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand}/>} /> */}
     </Routes>
