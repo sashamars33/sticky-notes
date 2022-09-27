@@ -9,7 +9,7 @@ const Signup = () => {
         <input type="email" name="email" placeholder="Email"></input>
         <input type="password" name="password" placeholder="Password"></input>
         <input type="password" name="confirmPassword" placeholder="Confirm Password"></input>
-        <input class="button" type="submit"></input>
+        <input className="button" type="submit"></input>
     </form>
 
     <p>Already have an account?<Link to='/login'>Click here to log-in</Link></p>

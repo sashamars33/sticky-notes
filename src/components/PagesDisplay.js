@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, trackPos, updPos, onAdd, logout}) => {
   
-  console.log(notes)
+  console.log(pages)
 
   return (
     <section className='grid pagesDisplay'>

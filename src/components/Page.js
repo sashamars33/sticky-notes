@@ -10,7 +10,7 @@ const Page = ({ title, onDelete, page, expand, notes, updPos, trackPos, onAdd, m
 
   notes = notes.filter(note => note.page === page._id)
 
-  console.log(notes, page, page.selected)
+  console.log(page)
 
   const show = page.selected === true ? true : false
 
@@ -19,7 +19,6 @@ const Page = ({ title, onDelete, page, expand, notes, updPos, trackPos, onAdd, m
     <div className={`page ${page.selected}Expand`}>
       <section style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <NewNoteForm onAdd={onAdd} 
-        pageTitle={page.title} 
         page={page}/>
         <h2 className='pageTitle'
         onClick={() => expand(page._id)}>{title}</h2>
