@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Navagation from './components/Navagation'
 import Pages from './pages/Pages'
 import Logout from './pages/Logout'
+import About from './pages/About'
 
 
 
@@ -14,12 +15,22 @@ import Logout from './pages/Logout'
 function App() {
 
   //Different states set page data, note data, and note position data
+  const [user, setUser] = useState();
   const [pages, setPages] = useState([]);
   const [notes, setNotes] = useState([]);
   const [notePosition, setNotePosition] = useState({x: 0, y: 0});
   const [login, setLogin] = useState(false)
        
-       
+  //Sets user or whether or not a user is logged in
+  useEffect(() => {
+    const getUser = async () => {
+      const loggedInUser = await fetchUser()
+      console.log(loggedInUser)
+      setUser(loggedInUser)
+    }
+
+    getUser();
+  }, [])
   //Sets pages from server
   useEffect(() => {
     const getPages = async () => {
@@ -40,7 +51,7 @@ function App() {
 
     getNotes();
   }, []);
-       
+      
        
   //Gets pages from server
   const fetchPages = async () => {
@@ -49,24 +60,41 @@ function App() {
     console.log(data)
     if(data === false){
       setLogin(false)
+      return []
     }else{
     setLogin(true)
     return data
     }
   }
        
+    //Gets user from server
+  const fetchUser = async () => {
+    const res = await fetch('/pages/user')
+    const data = await res.json();
+    console.log(data)
+    if(Login === false){
+      return []
+    }else{
+      return data
+    }
+  }
        
   //Gets Notes from server
   const fetchNotes = async () => {
     const res = await fetch('/pages/notes')
     const data = await res.json();
-
-    return data
+    if(Login === false){
+      return []
+    }else{
+      return data
+    }
   }
-       
+  
+  //Logs out user
   const logout = async () => {
     const res = await fetch('/logout')
     const data = await res.json();
+    setLogin(false)
     console.log(data)
   }
        
@@ -197,14 +225,16 @@ function App() {
    }
    
 console.log(login)
+console.log(user)
 
   return (
   <Router forceRefresh={true}>
-    <Navagation />
+    <Navagation login={login}/>
     <Routes>
         <Route path='/' exact element={<Home login={login}/>} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/about' element={<About />} />
         {login === false ? <Route path='/' exact element={<Home login={login}/>} /> : <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand} logout={logout}/>} />}
         <Route path='/logout' element={<Logout />} />
         {/* <Route path='/pages/notes' element={<Notes notes={notes} pages={pages} deleteNote={deleteNote} onAdd={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand}/>} /> */}

@@ -1,20 +1,9 @@
-import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 
-const Home = ({login}) => {
+const About = () => {
   return (
-    <section className='siteIntro flex'>
-      <h1>Sticky Notes</h1>
-      <div className='intro flex'>
-        <p>Create personalized sticky-note boards where you can leave yourself importants notes, keep information, or whatever you like!</p>
-        <ul className='flex'>
-          <li><Link className='btn' to='/signup'>Sign up here!</Link></li>
-        </ul>
-      </div>
-      <div className='intro-img'>
-        <p>Some kind of content to know whats going on</p>
-      </div>
-      <section id='about' className="siteInfo flex">
+    <>
+    <section id='about' className="siteInfo flex">
           <h2>About Sticky Notes</h2>
           <div>
             <p>Sticky notes is a web application designed to help you organize your quick notes, spontaneous ideas, other tidbits of information into one place. Much like a notes app but a bit more engaging!</p>
@@ -31,8 +20,8 @@ const Home = ({login}) => {
           </form>
     </section>
     <Footer />
-    </section>
+    </>
   )
 }
 
-export default Home
+export default About

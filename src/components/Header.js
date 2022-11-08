@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import { FaUserCircle } from 'react-icons/fa'
 
 
 
@@ -35,15 +34,12 @@ const show = pages.includes(true)
 
   return (
     <div className={`${show}NewPageForm`}>
-      <h1 style={{padding: '0 0 5% 0', borderBottom: 'solid 2px #f5f5f520'}}>Sticky Notes</h1>
       <ul className={`flex headingUl`}>
          <li><form onSubmit={onSubmit} className={`newPageForm flex`}>
             <input className="input" type = "text" placeholder = "add a new page... " value={pageTitle} onChange={(e) => setPageTitle(e.target.value)}></input>
-            <input className="button" type="submit" value="+">
-            </input>
-
+            <button className="button" type="submit" style={{margin: 0, padding: 0}}>+
+            </button>
           </form></li>
-        <li><FaUserCircle /></li>
       </ul>
     </div>
   )
