@@ -6,27 +6,28 @@ const Notes = ({ page, note, deleteNote, trackPos, updPos }) => {
 
     const show = page.selected === true ? true : false
 
-    const ref = useRef(null);
+    // const ref = useRef(null);
 
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
+    // const [width, setWidth] = useState(0);
+    // const [height, setHeight] = useState(0);
 
-    useLayoutEffect(() => {
-        setWidth(ref.current.offsetWidth);
-        setHeight(ref.current.offsetHeight);
-    }, []);
+    // useLayoutEffect(() => {
+    //     setWidth(ref.current.offsetWidth);
+    //     setHeight(ref.current.offsetHeight);
+    // }, []);
 
   return (
-    <Draggable bounds='parent' onDrag={(e, data) =>{
-     trackPos(e, data);
-     updPos(data, note._id)}
-     }>
+    // <Draggable bounds='parent' onDrag={(e, data) =>{
+    //  trackPos(e, data);
+    //  updPos(data, note._id)}
+    //  }>
         <div className={`note ${show}Note`} 
-        ref={ref} 
-        style={{ padding: '2%', position: 'absolute', top: note.position.y + 'px', left: note.position.x + 'px', bottom: note.position.y + {width}, right: note.position.y + {height}, background: note.color}}>
-        <p><TiDelete className='noteDelete' onClick={() => deleteNote(note._id)}/>{`   ${note.note}`}</p>
+        // ref={ref} 
+        style={{ display: 'flex', flexFlow: 'row wrap', padding: '2%', margin: '2% 2% 2% 0', background: note.color}}>
+        <p style={{width: '100%', textAlign: 'right', paddingBottom: '1%'}}><TiDelete className='noteDelete' onClick={() => deleteNote(note._id)}/></p>
+        <p>{`${note.note}`}</p>
         </div>
-    </Draggable>
+    // </Draggable>
   )
 }
 

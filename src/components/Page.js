@@ -27,8 +27,8 @@ const Page = ({ title, onDelete, page, expand, notes, updPos, trackPos, onAdd, m
         <span style={{justifySelf: 'flex-start'}}><FaMinus className={`${show}Minimize`} 
         onClick={() => minimize(page._id)}/></span>
       </section>
-      <section className='notesContainer'>
-          {notes.length === 0 ? <h2>No Notes</h2> : notes.map((note) => (
+      <section className='notesContainer' style={{display: 'flex', flexFlow: 'row wrap', alignItems: 'center'}}>
+          {notes.length === 0 ? <p>  </p> : show === false ? <p></p> : notes.map((note) => (
           <Note key={note._id} 
           note={note} 
           deleteNote={deleteNote} 

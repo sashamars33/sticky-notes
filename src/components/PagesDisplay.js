@@ -7,23 +7,25 @@ const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, tra
   console.log(pages)
 
   return (
-    <section className='grid pagesDisplay'>
-      {pages.map((page) => (
-        <Page key={page._id} 
-        title={page.title} 
-        page={page} 
-        onDelete={onDelete} 
-        deleteNote={deleteNote} 
-        expand={expand} 
-        minimize={minimize} 
-        pages={pages} 
-        notes={notes} 
-        trackPos={trackPos} 
-        updPos={updPos} 
-        onAdd={onAdd}/>
-      ))}
-      <Link to='/logout' onClick={() => logout()}>Logout</Link>
-    </section>
+    <>
+      <section className='grid pagesDisplay'>
+        {pages.map((page) => (
+          <Page key={page._id} 
+          title={page.title} 
+          page={page} 
+          onDelete={onDelete} 
+          deleteNote={deleteNote} 
+          expand={expand} 
+          minimize={minimize} 
+          pages={pages} 
+          notes={notes} 
+          trackPos={trackPos} 
+          updPos={updPos} 
+          onAdd={onAdd}/>
+        ))}
+      </section>
+    <Link className='logout' to='/logout' onClick={() => logout()}>Logout</Link>
+    </>
   )
 }
 
