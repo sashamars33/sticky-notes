@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const Signup = () => {
   return (
-    <div class="info-form">
+    <div className="info-form">
     <h1 id="instructions">Sign up to get your notes organized.</h1>
     <form action="/signup" method="POST">
         <input type="text" name="userName" placeholder="User Name"></input>

@@ -23,7 +23,7 @@ const Notes = ({ page, note, deleteNote, trackPos, updPos }) => {
     //  }>
         <div className={`note ${show}Note`} 
         // ref={ref} 
-        style={{ display: 'flex', flexFlow: 'row wrap', padding: '2%', margin: '2% 2% 2% 0', background: note.color}}>
+        style={{ display: 'flex', flexFlow: 'row wrap', padding: '5%', background: note.color}}>
         <p style={{width: '100%', textAlign: 'right', paddingBottom: '1%'}}><TiDelete className='noteDelete' onClick={() => deleteNote(note._id)}/></p>
         <p>{`${note.note}`}</p>
         </div>

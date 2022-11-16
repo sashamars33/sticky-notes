@@ -229,7 +229,7 @@ console.log(user)
 
   return (
   <Router forceRefresh={true}>
-    <Navagation login={login}/>
+    <Navagation login={login} logout={logout} />
     <Routes>
         <Route path='/' exact element={<Home login={login}/>} />
         <Route path='/login' element={<Login />} />
