@@ -149,24 +149,25 @@ html {
   width: 100%;
   text-transform: none;
 }
+.rating {
+  align-items: center;
+  flex-direction: row;
+  margin: 0 5%;
+}
 
 .pagesDisplay {
-  padding: 5% 0;
-  grid-template-columns: repeat(5,1fr);
-  grid-auto-rows: minmax(25vh, auto);
+  padding: 2% 0;
   grid-column-gap: 3%;
   grid-row-gap: 5%;
+  grid-template-columns: repeat(1fr, 8);
+  grid-template-rows: 20vh;
   align-items: stretch;
   justify-items: stretch;
-}
-.logout{
-  width: 100% !important;
-  margin: auto;
-  text-align: center;
+
 }
 .page{
-  color: #f5f5f550;
-  background: #f5f5f520;
+  color: #f5f5f580;
+  background: rgba(173, 216, 230, 0.6);
   border-radius: 20px;
   padding: 7%;
   justify-content: space-around;
@@ -174,40 +175,150 @@ html {
   text-transform: none;
   flex-flow: row wrap;
 }
+.page0{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+.page1{
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.page2{
+  grid-column-start: 5;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.page3{
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.page4{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.page5{
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+.page6{
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.page7{
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.logout{
+  width: 100% !important;
+  margin: auto;
+  text-align: center;
+}
+
 
 .page span  {
   text-align: left;
 }
 
-.pageTitle {
-  width: 70%;
+.truepageTitle, .falsePageTitle {
+  width: 100%;
 }
+.flasepageMenu {
+  flex-flow: row wrap;
+}
+.falsepageMenu .falsepageActions {
+  width: 100%;
+  padding-bottom: 5%; 
+}
+.falsepageActions h2 {
+  width: 85%;
+}
+.pagepageAction span {
+  width: 15%;
+  text-align: right;
+}
+.truepageActions {
+  width: 100%;
+  justify-content: space-between;
+  padding: 2% 0 5% 0;
+}
+.truepageActions h2 {
+  width: 90%;
+}
+.truepageMenu {
+  justify-content: stretch ;
+  align-items: center;
+  flex-direction: column;
+  width: 25%;
+}
+.pageMenu > .pageActions {
+  width: 90%;
+  padding: none;
+  margin: none;
+  justify-content: space-between;
+}
+.pageMenu > span {
+  padding: 5% 0 ;
+  width: 100%;
+  text-align: left;
+}
+.truepageTitle {
+  width: 100%;
 
-.pageTitle:hover {
-  color: #f5f5f570;
+}
+.noteFormContainer{
+  width: 100%;
+}
+.noteFormContainer > form{
+  width: 95%;
+  padding: 2.5%;
+  margin: 2% 0;
+}
+.falsepageTitle:hover {
+  color: #f5f5f5;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .page .deletePage:hover {
-  color: #f5f5f590;
+  color: #f5f5f5;
   transform: scale(1.2);
 }
 
 .trueExpand .notesContainer{
-  width: 100%;
+  width: 70%;
   height: 90vh;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: minmax(10vh, auto);
+  justify-content: flex-start;
+  align-items: flex-start;
+  justify-items: flex-start;
 }
 .note {
   font-size: .5rem;
   border-radius: 20px;
   width: 200px;
   color: #050505;
-  background-color: rgb(255, 103, 103);
+  padding: 2%;
+  margin: none;
 }
-.note:hover {
+/* .note:hover {
   cursor: grab;
-}
+} */
 
 .note .noteDelete:hover {
   cursor: pointer;
@@ -225,18 +336,18 @@ html {
   margin: 0;
   padding: 0;
 }
-.trueExpand .pageTitle:hover {
+.trueExpand .truepageTitle:hover {
   text-decoration: none;
   transition: none;
   cursor: default;
   color: inherit;
 }
 
-.trueExpand .pageTitle {
+/* .trueExpand .pageTitle {
   text-align: right;
   width: 40%;
   padding-right: 2%;
-}
+} */
 
 .trueMinimize:hover {
   cursor: pointer;
@@ -306,16 +417,16 @@ a:link, a:visited {
 .intro ul li {
   text-align: center;
   width: 50%;
-  border: solid 2px rgb(255, 0, 30);
-  background: rgba(255, 0, 30, 0.3);
+  border: solid 5px lightblue;
+  background: rgba(173, 216, 230, 0.3);
   border-radius: 10px;
   padding: 3% 2%;
   margin: 5% 0 2% 0;
 }
 .intro ul li a {
-  color: rgb(255, 0, 30);
+  color: lightblue;
   font-size: .7rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 .intro-img {
   background: rgba(230, 230, 250, 0.3);

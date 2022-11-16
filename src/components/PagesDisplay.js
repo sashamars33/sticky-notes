@@ -1,15 +1,16 @@
 import Page from './Page'
-import { Link } from 'react-router-dom'
 
 
 const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, trackPos, updPos, onAdd, logout}) => {
   
-  console.log(pages)
+
+
 
   return (
     <>
       <section className='grid pagesDisplay'>
-        {pages.map((page) => (
+        {
+        pages.map((page, ix) => (
           <Page key={page._id} 
           title={page.title} 
           page={page} 
@@ -21,10 +22,11 @@ const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, tra
           notes={notes} 
           trackPos={trackPos} 
           updPos={updPos} 
-          onAdd={onAdd}/>
+          onAdd={onAdd}
+          i={ix}/>
+          
         ))}
       </section>
-    <Link className='logout' to='/logout' onClick={() => logout()}>Logout</Link>
     </>
   )
 }
