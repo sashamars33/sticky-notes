@@ -2,11 +2,10 @@ import { useState } from 'react'
 
 const NewNoteForm = ({ page, onAdd }) => {
 
-    console.log(page)
-
     const show = page.selected === true ? true : false
 
     const [note, setNote] = useState('');
+    const [rating, setRating] = useState(1)
 
     const onSubmit = (e) => {
       e.preventDefault()
@@ -15,9 +14,14 @@ const NewNoteForm = ({ page, onAdd }) => {
         alert('Please type a note.')
         return
       }
-      onAdd({note, page})
+      if(!rating){
+        alert('Please enter a rating.')
+        return
+      }
+      onAdd({note, page, rating})
 
       setNote('')
+      setRating(1)
     }
 
 
@@ -27,8 +31,8 @@ const NewNoteForm = ({ page, onAdd }) => {
             <label style={{color: '#050505'}}>Create Note</label>
             <textarea className="input" type = "text" placeholder = "add a new note... " value={note} onChange={(e) => setNote(e.target.value)}></textarea>
             {/* <input type = "text" name='page' readOnly value={page._id} className='hidden'></input> */}
-            <label style={{color: '#050505'}}>Importance</label>
-            <input className="" type='text' placeholder='1(least) - 5(most)'></input>
+            <label style={{color: '#050505'}}>Importance (5 (most) - 1 (least))</label>
+            <input className="" type='text' placeholder='1(least) - 5(most)' value={rating} onChange={(e) => setRating(e.target.value)}></input>
              
 
             <input type="submit"></input>

@@ -1,11 +1,8 @@
 import Page from './Page'
 
 
-const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, trackPos, updPos, onAdd, logout}) => {
-  
-
-
-
+const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, trackPos, updPos, onAdd, updComp}) => {
+  console.log(notes)
   return (
     <>
       <section className='grid pagesDisplay'>
@@ -23,7 +20,8 @@ const PagesDisplay = ({pages, onDelete, expand, deleteNote, minimize, notes, tra
           trackPos={trackPos} 
           updPos={updPos} 
           onAdd={onAdd}
-          i={ix}/>
+          i={ix}
+          updComp={updComp}/>
           
         ))}
       </section>

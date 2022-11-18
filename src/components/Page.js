@@ -4,10 +4,13 @@ import { FaMinus } from 'react-icons/fa'
 import NewNoteForm from './NewNoteForm'
 import Note from './Note'
 
-const Page = ({ title, onDelete, page, expand, notes, updPos, trackPos, onAdd, minimize, deleteNote, i}) => {
-  
-  notes = notes.filter(note => note.page === page._id)
+const Page = ({ title, onDelete, page, expand, notes, updPos, trackPos, onAdd, minimize, deleteNote, i, updComp}) => {
+
+  notes = notes.filter(note => note.page === page._id).sort((a,b)=> a.rating - b.rating).reverse()
+
   const show = page.selected === true ? true : false
+
+  const notesCompleted = notes.filter(note => note.completed === true)
 
   return (
     <div className={`page ${page.selected}Expand page${i} flex`}>
@@ -21,17 +24,20 @@ const Page = ({ title, onDelete, page, expand, notes, updPos, trackPos, onAdd, m
           onClick={() => minimize(page._id)}/></span>
         </div>
         <NewNoteForm onAdd={onAdd} 
-        page={page}/>
-         <span>Items: {notes.length}</span>
+        page={page} />
+         <span style={{padding: '2% 0', alignSelf: 'flex-start'}}>Items Completed: {notesCompleted.length}/{notes.length}</span>
       </section>
-      <section className='notesContainer grid'>
+      <section className='notesContainer flex'>
           {notes.length === 0 ? <p>  </p> : show === false ? <p></p> : notes.map((note) => (
           <Note key={note._id} 
           note={note} 
+          noteId={note._id}
           deleteNote={deleteNote} 
           trackPos={trackPos} 
           updPos={updPos}
-          page={page}/> )) }
+          page={page}
+          updComp={updComp}
+          /> )) }
       </section> 
     </div>
   )

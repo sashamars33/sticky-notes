@@ -11,26 +11,24 @@ import About from './pages/About'
 
 
 
-
 function App() {
 
   //Different states set page data, note data, and note position data
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const [pages, setPages] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [notePosition, setNotePosition] = useState({x: 0, y: 0});
+  // const [notePosition, setNotePosition] = useState({x: 0, y: 0});
   const [login, setLogin] = useState(false)
        
   //Sets user or whether or not a user is logged in
-  useEffect(() => {
-    const getUser = async () => {
-      const loggedInUser = await fetchUser()
-      console.log(loggedInUser)
-      setUser(loggedInUser)
-    }
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const loggedInUser = await fetchUser()
+  //     setUser(loggedInUser)
+  //   }
 
-    getUser();
-  }, [])
+  //   getUser();
+  // }, [])
   //Sets pages from server
   useEffect(() => {
     const getPages = async () => {
@@ -57,7 +55,6 @@ function App() {
   const fetchPages = async () => {
     const res = await fetch('/pages')
     const data = await res.json();
-    console.log(data)
     if(data === false){
       setLogin(false)
       return []
@@ -67,17 +64,16 @@ function App() {
     }
   }
        
-    //Gets user from server
-  const fetchUser = async () => {
-    const res = await fetch('/pages/user')
-    const data = await res.json();
-    console.log(data)
-    if(Login === false){
-      return []
-    }else{
-      return data
-    }
-  }
+  //   //Gets user from server
+  // const fetchUser = async () => {
+  //   const res = await fetch('/pages/user')
+  //   const data = await res.json();
+  //   if(Login === false){
+  //     return []
+  //   }else{
+  //     return data
+  //   }
+  // }
        
   //Gets Notes from server
   const fetchNotes = async () => {
@@ -95,35 +91,49 @@ function App() {
     const res = await fetch('/logout')
     const data = await res.json();
     setLogin(false)
-    console.log(data)
   }
        
   //  Tracks position of notes on page so they remain in the same spot on reload
-   const trackPos = (e, data) => {
-       setNotePosition({x: data.x, y: data.y})
-       console.log(notePosition)
-   }
+  //  const trackPos = (e, data) => {
+  //      setNotePosition({x: data.x, y: data.y})
+  //  }
   
-   const updatePosition = async (position, note) => {
-     console.log(position, note._id)
-     const res = await fetch(`/pages/updatepos`,{
-       method: 'PUT',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({
-         noteId: note,
-         position: {
-           x: position.x,
-           y: position.y
-         }})
-     })
+  //  const updatePosition = async (position, note) => {
+  //    const res = await fetch(`/pages/updatepos`,{
+  //      method: 'PUT',
+  //      headers: { 'Content-Type': 'application/json' },
+  //      body: JSON.stringify({
+  //        noteId: note,
+  //        position: {
+  //          x: position.x,
+  //          y: position.y
+  //        }})
+  //    })
   
-     const data = await res.json();
-     setNotePosition({x: data.x, y: data.y})
-   }
+  //    const data = await res.json();
+  //    setNotePosition({x: data.x, y: data.y})
+  //  }
+
+  //Updates Completion Checkbox on Notes
+  const updComplete = async (check, comp) => {
+    console.log(check, comp)
+    const res = await fetch(`/pages/completed`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({noteId: check, completed: comp})
+    })
+
+    const data = await res.json()
+    if(data === true){
+      setNotes(
+      notes.map(note => 
+        note._id === check ? {...note, completed: !comp } : {...note, completed: note.completed }
+      )
+    )}
+  }
    
   //Adds Page to Server
   const addPage = async (page) => {
-    console.log(page, 'creating page')
    const res = await fetch(`/pages/createpage`, {
      method: 'POST',
      headers: {
@@ -139,7 +149,6 @@ function App() {
   //Adds note to Server 
   const addNote = async (note) => {
 
-    console.log(note)
 
     const res = await fetch(`/pages/createnote`, {
       method: 'POST',
@@ -196,8 +205,7 @@ function App() {
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({pageId: id})
      })
-  
-     response.status === 200 ? console.log('Notes deleted') : console.log('error deleting notes');
+
   
      const res = await fetch(`/pages/deletenotes`, {
        method: 'DELETE',
@@ -213,19 +221,17 @@ function App() {
   
    //Deletes a note
    const deleteNote = async (id) => {
-    console.log(id)
      const res = await fetch(`/pages/deletenote`, {
        method: 'DELETE',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({noteId: id})
      })
   
-     console.log(res.status)
      res.status === 200 ? setNotes(notes.filter(note => note._id !== id)) : alert('Error Deleting this Note')
    }
    
-console.log(login)
-console.log(user)
+   console.log(notes)
+
 
   return (
   <Router forceRefresh={true}>
@@ -235,7 +241,7 @@ console.log(user)
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/about' element={<About />} />
-        {login === false ? <Route path='/' exact element={<Home login={login}/>} /> : <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand} logout={logout}/>} />}
+        {login === false ? <Route path='/' exact element={<Home login={login}/>} /> : <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote}  minimize={unExpand} updComp={updComplete}/>} />}
         <Route path='/logout' element={<Logout />} />
         {/* <Route path='/pages/notes' element={<Notes notes={notes} pages={pages} deleteNote={deleteNote} onAdd={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand}/>} /> */}
     </Routes>

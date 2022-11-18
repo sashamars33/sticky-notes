@@ -167,7 +167,7 @@ html {
 }
 .page{
   color: #f5f5f580;
-  background: rgba(173, 216, 230, 0.6);
+  background: #85c8f570;
   border-radius: 20px;
   padding: 7%;
   justify-content: space-around;
@@ -301,25 +301,26 @@ html {
 
 .trueExpand .notesContainer{
   width: 70%;
-  height: 90vh;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: minmax(10vh, auto);
+  grid-template-rows: minmax(5vh, auto);
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
   justify-items: flex-start;
 }
 .note {
   font-size: .5rem;
   border-radius: 20px;
-  width: 200px;
+  width: 20%;
   color: #050505;
   padding: 2%;
-  margin: none;
+  margin: .5%;
 }
 /* .note:hover {
   cursor: grab;
 } */
-
+.check:hover {
+  cursor: pointer;
+}
 .note .noteDelete:hover {
   cursor: pointer;
   transform: scale(1.2);
@@ -370,7 +371,7 @@ html {
   display: none;
 }
 a:link, a:visited {
-  color: lightblue;
+  color: #85c8f5;
   text-decoration: none;
 }
 .headerNav ul{
@@ -387,16 +388,16 @@ a:link, a:visited {
 
 } */
 .siteIntro h1 {
-  color: lightsteelblue;
+  color: #85c8f5;
   font-size: 3.5rem;
   padding: 0 0 2.5% 0;
   margin: 0 0 2.5% 0;
-  border-bottom: 5px solid lightsteelblue;
+  border-bottom: 5px solid #85c8f5;
   border-radius: 10px;
   width: 100%;
 }
 .intro {
-  background: rgba(176, 196, 222, 0.5);
+  background: #85c8f550;
   padding: 2%;
   border-radius: 10px;
   justify-content: space-between;
@@ -417,26 +418,26 @@ a:link, a:visited {
 .intro ul li {
   text-align: center;
   width: 50%;
-  border: solid 5px lightblue;
-  background: rgba(173, 216, 230, 0.3);
+  border: solid 5px #85c8f5;
+  background: #85c8f530;
   border-radius: 10px;
   padding: 3% 2%;
   margin: 5% 0 2% 0;
 }
 .intro ul li a {
-  color: lightblue;
+  color: #85c8f5;
   font-size: .7rem;
   font-weight: 800;
 }
 .intro-img {
-  background: rgba(230, 230, 250, 0.3);
+  background: #85c8f520;
   width: 55%;
 }
 .siteInfo {
   margin: 2.5% 0;
   padding: 2.5% 0;
-  border-top: 5px solid lightsteelblue;
-  border-bottom: 5px solid lightsteelblue;
+  border-top: 5px solid #85c8f5;
+  border-bottom: 5px solid #85c8f5;
   border-radius: 10px;
   justify-content: space-between;
   justify-items: center;
@@ -444,7 +445,7 @@ a:link, a:visited {
 .siteInfo h2 {
   width: 100%;
   font-size: 2.5rem;
-  color: lightsteelblue;
+  color: #85c8f5;
   padding: 0 0 2% 0;
 }
 .siteInfo div {
@@ -460,7 +461,7 @@ a:link, a:visited {
 	width: 35%;
 	line-height: 175%;
 	padding: 1.5%;
-  background: lightblue;
+  background: #85c8f5;
   border-radius: 10px;
 }
 .info-form {
@@ -469,7 +470,7 @@ a:link, a:visited {
   margin: 5% 32.5%;
 	line-height: 175%;
 	padding: 1.5%;
-  background: lightsteelblue;
+  background: #85c8f5;
   border-radius: 10px;
 }
 input[type=text], select, textarea, 
@@ -489,7 +490,7 @@ input[type=email], input[type=password], input[type=submit] {
   }
   button[type=submit] {
 	background-color: #050505;
-	color: lightsteelblue;
+	color: #85c8f5;
 	font-weight: 700;
 	padding: 1%;
 	border: none;
@@ -502,5 +503,5 @@ input[type=email], input[type=password], input[type=submit] {
   }
   input[type=submit]:hover {
 	  background-color: #fff;
-    color: lightblue;
+    color: #85c8f5;
   }
