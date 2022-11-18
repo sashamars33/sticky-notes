@@ -6,8 +6,6 @@ const Header = ({ pages, onAdd }) => {
 
 const [pageTitle, setPageTitle] = useState('')
 
-console.log(pages, pages.map(page => page.title.toLowerCase()))
-
 const pagesLower = pages.map(page => page.title.toLowerCase());
 
 const onSubmit = (e) => {

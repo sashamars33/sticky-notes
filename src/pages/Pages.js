@@ -3,16 +3,9 @@ import PagesDisplay from '../components/PagesDisplay'
 
 
 
-const Pages = ({pages, onAdd, expand, deletePage, minimize, trackPos, updPos, deleteNote, onAddNote, notes, logout}) => {
+const Pages = ({pages, onAdd, expand, deletePage, minimize, trackPos, updPos, deleteNote, onAddNote, notes, updComp}) => {
 
   return (
-    // <div>
-    //     <Header onAdd={onAdd} pages={pages} /> 
-    //     {pages.length === 0 ? <h2>No Pages</h2> : <PagesDisplay 
-    //      pages={pages} 
-    //      onDelete={deletePage} 
-    //      toExpand={toExpand}/> }
-    // </div>
 
     <div>
       <Header onAdd={onAdd} pages={pages} /> 
@@ -24,7 +17,7 @@ const Pages = ({pages, onAdd, expand, deletePage, minimize, trackPos, updPos, de
       minimize={minimize} 
       notes={notes} 
       trackPos={trackPos} 
-      updPos={updPos} logout={logout}/>
+      updPos={updPos} updComp={updComp}/>
     </div>
 
 
