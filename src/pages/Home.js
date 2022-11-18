@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
+import StickyNotes from '../assets/StickyNotes.JPG'
 
 const Home = ({login}) => {
   return (
@@ -12,7 +13,7 @@ const Home = ({login}) => {
         </ul>
       </div>
       <div className='intro-img'>
-        <p>Some kind of content to know whats going on</p>
+        <img src={StickyNotes} alt='Preview for Sticky Notes Site' style={{width: '75%', margin: '0 12.5%'}}></img>
       </div>
       <section id='about' className="siteInfo flex">
           <h2>About Sticky Notes</h2>

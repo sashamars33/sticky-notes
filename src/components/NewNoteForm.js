@@ -14,14 +14,18 @@ const NewNoteForm = ({ page, onAdd }) => {
         alert('Please type a note.')
         return
       }
-      if(!rating){
-        alert('Please enter a rating.')
+      if(!rating || rating > 5 || rating <= 0){
+        alert('Please enter a valid rating.')
         return
       }
       onAdd({note, page, rating})
 
       setNote('')
       setRating(1)
+    }
+
+    function refreshPage(){
+      window.location.reload(false)
     }
 
 
@@ -35,7 +39,8 @@ const NewNoteForm = ({ page, onAdd }) => {
             <input className="" type='text' placeholder='1(least) - 5(most)' value={rating} onChange={(e) => setRating(e.target.value)}></input>
              
 
-            <input type="submit"></input>
+            <input onClick={refreshPage} type="submit"></input>
+            
         </form>
         {/* <span onClick = {() => minimize(page._id)}>Go back to Pages</span> */}
     </div>
