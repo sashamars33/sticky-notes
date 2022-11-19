@@ -13,6 +13,8 @@ import About from './pages/About'
 
 function App() {
 
+  const url = 'https://sticky-notes-server.cyclic.app'
+
   //Different states set page data, note data, and note position data
   // const [user, setUser] = useState();
   const [pages, setPages] = useState([]);
@@ -53,7 +55,7 @@ function App() {
        
   //Gets pages from server
   const fetchPages = async () => {
-    const res = await fetch('/pages')
+    const res = await fetch(url+'/pages')
     const data = await res.json();
     if(data === false){
       setLogin(false)
@@ -77,7 +79,7 @@ function App() {
        
   //Gets Notes from server
   const fetchNotes = async () => {
-    const res = await fetch('/pages/notes')
+    const res = await fetch(url+'/pages/notes')
     const data = await res.json();
     if(Login === false){
       return []
@@ -88,7 +90,7 @@ function App() {
   
   //Logs out user
   const logout = async () => {
-    const res = await fetch('/logout')
+    const res = await fetch(url+'/logout')
     const data = await res.json();
     setLogin(false)
   }
@@ -117,7 +119,7 @@ function App() {
   //Updates Completion Checkbox on Notes
   const updComplete = async (check, comp) => {
     console.log(check, comp)
-    const res = await fetch(`/pages/completed`, {
+    const res = await fetch(url+`/pages/completed`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({noteId: check, completed: comp})
@@ -134,7 +136,7 @@ function App() {
    
   //Adds Page to Server
   const addPage = async (page) => {
-   const res = await fetch(`/pages/createpage`, {
+   const res = await fetch(url+`/pages/createpage`, {
      method: 'POST',
      headers: {
        'Content-type': 'application/json'
@@ -150,7 +152,7 @@ function App() {
   const addNote = async (note) => {
 
 
-    const res = await fetch(`/pages/createnote`, {
+    const res = await fetch(url+`/pages/createnote`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -165,7 +167,7 @@ function App() {
        
    //Updates page being minimized to the server
    const unExpand = async (id) => {
-     const res = await fetch(`/pages/closepage`, {
+     const res = await fetch(url+`/pages/closepage`, {
        method: 'PUT',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({ pageId: id})
@@ -182,7 +184,7 @@ function App() {
        
    //Updates page being expanded when selected to the server
    const toggleExpand = async (id) => {
-     const res = await fetch(`/pages/select`, {
+     const res = await fetch(url+`/pages/select`, {
        method: 'PUT',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({ pageId: id }, {
@@ -200,14 +202,14 @@ function App() {
        
    //Deletes a page and all of its notes
    const deletePage = async (id) => {
-     const response = await fetch(`pages/deletepage`, {
+     const response = await fetch(url+`pages/deletepage`, {
        method: 'DELETE',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({pageId: id})
      })
 
   
-     const res = await fetch(`/pages/deletenotes`, {
+     const res = await fetch(url+`/pages/deletenotes`, {
        method: 'DELETE',
        headers: { 'Content-Type': 'application/json'},
        body: JSON.stringify({ pageId: id})
@@ -221,7 +223,7 @@ function App() {
   
    //Deletes a note
    const deleteNote = async (id) => {
-     const res = await fetch(`/pages/deletenote`, {
+     const res = await fetch(url+`/pages/deletenote`, {
        method: 'DELETE',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify({noteId: id})

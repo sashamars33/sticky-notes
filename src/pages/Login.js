@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 
 const LoginSignup = () => {
+  const url = 'https://sticky-notes-server.cyclic.app'
+
   return (
     <div className='info-form'>
-        <form action="/login" method="POST">
+        <form action={`${url}/login`} method="POST">
             <input type="email" name="email" placeholder="Email"></input>
             <input type="password" name="password" placeholder="Password"></input>
             <input className="button" type="submit"></input>
