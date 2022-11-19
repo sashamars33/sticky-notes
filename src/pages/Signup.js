@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom'
 
 const Signup = () => {
+
+  const url = 'https://sticky-notes-server.cyclic.app'
+
+
   return (
     <div className="info-form">
     <h1 id="instructions">Sign up to get your notes organized.</h1>
-    <form action="/signup" method="POST">
+    <form action={`${url}/signup`} method="POST">
         <input type="text" name="userName" placeholder="User Name"></input>
         <input type="email" name="email" placeholder="Email"></input>
         <input type="password" name="password" placeholder="Password"></input>
