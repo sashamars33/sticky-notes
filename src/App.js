@@ -14,6 +14,7 @@ import About from './pages/About'
 function App() {
 
   const url = 'https://sticky-notes-server.cyclic.app'
+  const frontUrl = 'https://sticky-notes-organizing.netlify.app'
 
   //Different states set page data, note data, and note position data
   // const [user, setUser] = useState();
@@ -239,12 +240,12 @@ function App() {
   <Router forceRefresh={true}>
     <Navagation login={login} logout={logout} />
     <Routes>
-        <Route path='/' exact element={<Home login={login}/>} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/about' element={<About />} />
-        {login === false ? <Route path='/' exact element={<Home login={login}/>} /> : <Route path='/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote}  minimize={unExpand} updComp={updComplete}/>} />}
-        <Route path='/logout' element={<Logout />} />
+        <Route path='https://sticky-notes-organizing.netlify.app/' exact element={<Home login={login}/>} />
+        <Route path='https://sticky-notes-organizing.netlify.app/login' element={<Login />} />
+        <Route path='https://sticky-notes-organizing.netlify.app/signup' element={<Signup />} />
+        <Route path='https://sticky-notes-organizing.netlify.app/about' element={<About />} />
+        {login === false ? <Route path='/' exact element={<Home login={login}/>} /> : <Route path='https://sticky-notes-organizing.netlify.app/pages' element={<Pages pages={pages} onAdd={addPage} deletePage={deletePage} expand={toggleExpand} notes={notes} deleteNote={deleteNote} onAddNote={addNote}  minimize={unExpand} updComp={updComplete}/>} />}
+        <Route path='https://sticky-notes-organizing.netlify.app/logout' element={<Logout />} />
         {/* <Route path='/pages/notes' element={<Notes notes={notes} pages={pages} deleteNote={deleteNote} onAdd={addNote} updPos={updatePosition} trackPos={trackPos} minimize={unExpand}/>} /> */}
     </Routes>
   </Router>
