@@ -227,7 +227,7 @@ function App() {
        body: JSON.stringify({noteId: id})
      })
   
-     res.status === 200 ? setNotes(notes.filter(note => note._id !== id)) : alert('Error Deleting this Note')
+     res.status === 200 ? setNotes(notes.filter(note => note._id !== id)) : alert('Error Deleting this Note. Please Try Again.')
    }
    
    console.log(notes)

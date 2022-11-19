@@ -19,6 +19,24 @@ const About = () => {
             <button type='submit' name='submit'>CONTACT</button>
           </form>
     </section>
+    {/* <section className="siteInfo flex" style={{flexFlow: 'row wrap'}}>
+      <h3>Tips for Using the Site</h3>
+      <span>Creating a Page</span>
+      <div>
+        <p></p>
+        <img></img>
+      </div> 
+      <span>Creating a Note</span>
+      <div>
+        <img></img>
+        <p></p>
+      </div>
+      <span>Other Bits and Bobs</span>
+      <div>
+        <p></p>
+        <img></img>
+      </div> 
+    </section> */}
     <Footer />
     </>
   )
