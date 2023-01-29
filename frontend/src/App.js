@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@mui/material'
-import { lightTheme } from './themes/lightTheme'
+import { darkTheme } from './themes/darkTheme'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,10 +11,15 @@ import Profile from './pages/Profile'
 
 function App() {
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Router>
         <Navigation /> 
-
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/profile' element={<Profile />} />
+        </Routes>
       </Router>
     </ThemeProvider>
   );
