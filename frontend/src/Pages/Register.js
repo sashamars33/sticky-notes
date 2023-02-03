@@ -86,7 +86,7 @@ const Register = () => {
                 </TextField>
                 <TextField variant="filled" label="Confirm Password" color="primary" style={{ margin: '2% 0'}} required type="text" id="password2" name="password2" value={password2} onChange={onChange}>
                 </TextField>
-                    <Button variant='outlined' onClick={onSubmit} style={{margin: '2% 0', padding: '2%'}}>Submit</Button>
+                    <Button variant='outlined ' onClick={onSubmit} style={{margin: '2% 0', padding: '2%'}}>Submit</Button>
             </FormControl>
        </CardContent>
        </Card>
