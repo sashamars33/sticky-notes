@@ -21,7 +21,7 @@ const Navigation = () => {
   
     return (
       <Box>
-        <AppBar position='static' sx={{}} style={{padding: '0 10%'}}>
+        <AppBar position='static' sx={{}} style={{padding: '0 5%'}}>
           <Toolbar style={{justifyContent: "space-between"}}>
             <Link to='/' style={{textDecoration: 'none', color: '#1c1c1c', textTransform: 'uppercase'}}>Sticky Notes</Link>
   

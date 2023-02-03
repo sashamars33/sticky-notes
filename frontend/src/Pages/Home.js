@@ -8,7 +8,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 
 const Home = () => {
   return (
-    <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 10%', height: '100vh'}} elevation={0} square>
+    <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%', height: '100vh'}} elevation={0} square>
       <Card sx={{bgcolor: 'background.paper'}} style={{margin: '2% 0'}}>
             <CardContent>
                 <h1 style={{textTransform: 'uppercase', padding: '0 0 2% 0'}}>Get your tasks and todos organized with Sticky Notes!</h1>
