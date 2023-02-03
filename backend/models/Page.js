@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 
 const PageSchema = mongoose.Schema({
     user: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     topic: {
         type: String,

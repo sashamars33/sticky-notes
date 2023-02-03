@@ -2,12 +2,14 @@ const mongoose = require('mongoose')
 
 const NoteSchema = mongoose.Schema({
     user: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     page: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Page'
     },
     note: {
         type: String,
