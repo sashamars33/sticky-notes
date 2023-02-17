@@ -4,14 +4,15 @@ const Page = require('../models/Page')
 const Note = require('../models/Note')
 
 const getPages = asyncHandler( async (req, res) => {
-    const user = await User.findById(req.user.id)
+
+    const user = await User.findById(req.params.id)
 
     if(!user){
         res.status(401)
         throw new Error('User not found.')
     }
 
-    const pages = await Page.find({user: req.user.id})
+    const pages = await Page.find({user: user})
 
     res.status(200).json(pages)
 })
@@ -19,27 +20,27 @@ const getPages = asyncHandler( async (req, res) => {
 const getNotes = asyncHandler( async(res,req) => {
     const user = await User.findById(req.user.id)
 
-    const page = await Page.findById(req.body.page._id)
+    const page = await Page.findById(req.params.id)
 
-    if(!user){
+    const notes = await Note.find({page: page})
+
+    if(page.user.toString() !== user){
         res.status(401)
-        throw new Error('User not found')
+        throw new Error('Not authorized.')
     }
-
-    const notes = await Note.find({user: user, page: page})
 
     res.status(200).json(notes)
 })
 
 const createPage = asyncHandler( async (req,res) => {
-    const topic = req.body.topic
+    const topic = req.body.page
+    const user = req.body.user
 
     if(!topic){
         res.status(400)
         throw new Error('Please add a board title.')
     }
 
-    const user = await User.findById(req.user.id)
 
     if(!user){
         res.status(401)
@@ -47,7 +48,7 @@ const createPage = asyncHandler( async (req,res) => {
     }
 
     const page = await Page.create({
-        user: req.user.id,
+        user,
         topic
     })
 

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "client": "npm start --prefix frontend",
-    "server": "nodemon backend/server.js",
+    "server": "nodemon backend/server.js --ignore client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Sasha Marshall",
