@@ -2,15 +2,14 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import noteService from './noteService'
 
 const initialState = {
-    pages: [],
-    page: {},
+    notes: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
     message: ''
 }
 
-export const createNote = createAsyncThunk('pages/create', 
+export const createNote = createAsyncThunk('notes/create', 
     async (noteData, thunkAPI) => {
         try{
             const token = thunkAPI.getState().auth.user.token
@@ -23,19 +22,29 @@ export const createNote = createAsyncThunk('pages/create',
     
 })
 
-export const getNotes = createAsyncThunk('pages/getPages', 
-    async (_, thunkAPI) => {
+export const getNotes = createAsyncThunk('notes/getNotes', 
+    async (page, thunkAPI) => {
+        try{
+            const user = thunkAPI.getState().auth.user._id
+            const token = thunkAPI.getState().auth.user.token
+            return await noteService.getNotes(token, user, page)
+        }catch(error){
+            const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+            return thunkAPI.rejectWithValue(message)
+        }
+})
+
+export const checkNote = createAsyncThunk('notes/checkNote', 
+    async (note, thunkAPI) => {
         try{
             const user = thunkAPI.getState().auth.user._id
             const page = thunkAPI.getState().pages.page._id
             const token = thunkAPI.getState().auth.user.token
-            return await noteService.getNotes(token, user)
+            return await noteService.getNotes(token, user, page)
         }catch(error){
             const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
-
             return thunkAPI.rejectWithValue(message)
         }
-    
 })
 
 
@@ -44,12 +53,15 @@ export const noteSlice = createSlice({
     name: 'note',
     initialState,
     reducers: {
-        resetNotes: (state) => {
+        reset: (state) => {
             state.isError = false;
             state.isSuccess = false;
             state.isLoading = false;
             state.message = '';
         },
+        restNotes: (state) => {
+            state.notes = [];
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -81,5 +93,5 @@ export const noteSlice = createSlice({
     }
 })
 
-export const { resetNotes } = noteSlice.actions
+export const { resetNotes, reset } = noteSlice.actions
 export default noteSlice.reducer

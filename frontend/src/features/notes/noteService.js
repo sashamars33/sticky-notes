@@ -18,6 +18,7 @@ const getNotes = async(token, user, page) => {
             Authorization: `Bearer ${token}`
         }
     }
+    console.log(page)
     const res = await axios.get(`${API_URL}/${user}/${page}`, config)
     return res.data
 }

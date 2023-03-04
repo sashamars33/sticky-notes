@@ -37,7 +37,7 @@ export const getPages = createAsyncThunk('pages/getPages',
     
 })
 
-export const setCurrentPage = createAsyncThunk('pages/setPage', 
+export const setCurrentPage = createAsyncThunk('pages/setCurrentPage', 
     async (page, thunkAPI) => {
     try{
         const token = thunkAPI.getState().auth.user.token

@@ -18,12 +18,16 @@ const getPages = asyncHandler( async (req, res) => {
     res.status(200).json(pages)
 })
 
-const getNotes = asyncHandler( async(res,req) => {
-    const user = await User.findById(req.params.id_user)
+const getNotes = asyncHandler( async(res, req) => {
+    console.log(req.params )
 
-    const page = await Page.findById(req.params.id_page)
+    const user = await User.findById(req.params.iduser)
+
+    const page = await Page.findById(req.params.idpage)
 
     const notes = await Note.find({page: page})
+
+
 
     if(page.user.toString() !== user){
         res.status(401)
@@ -57,9 +61,11 @@ const createPage = asyncHandler( async (req,res) => {
 })
 
 const createNote = asyncHandler( async(req, res) => {
-    const user = req.user.id
 
-    const page = req.body.page._id
+    console.log(req.body)
+
+    const user = req.body.user
+    const page = req.body.page
     const note = req.body.note
 
     const newNote = await Note.create({
@@ -99,12 +105,15 @@ const selectPage = asyncHandler( async(req, res) => {
         {_id: page},
         {selected: true})
 
+    const selected = await Page.find({_id: page})
+    res.status(200).json(selected[0])
 })
 
 const deselectPage = asyncHandler( async(req, res) => {
     const user = req.params.id
     await Page.updateMany({user},
         {selected: false})
+    res.status(200).json({})
 })
 
 module.exports = {

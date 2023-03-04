@@ -5,7 +5,7 @@ const { protect } = require('../middleware/authMiddleware')
 
  
 router.get('/:id', profileControllers.getPages)
-router.get('/:id_user/:id_page', profileControllers.getNotes)
+router.get('/:iduser/:idpage', profileControllers.getNotes)
 router.post('/create-page', profileControllers.createPage)
 router.post('/create-note', profileControllers.createNote)
 router.delete('/delete-page', profileControllers.deletePage)
