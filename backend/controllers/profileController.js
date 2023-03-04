@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const User = require('../models/User')
 const Page = require('../models/Page')
 const Note = require('../models/Note')
+const mongoose = require('mongoose')
 
 const getPages = asyncHandler( async (req, res) => {
 
@@ -18,9 +19,9 @@ const getPages = asyncHandler( async (req, res) => {
 })
 
 const getNotes = asyncHandler( async(res,req) => {
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(req.params.id_user)
 
-    const page = await Page.findById(req.params.id)
+    const page = await Page.findById(req.params.id_page)
 
     const notes = await Note.find({page: page})
 
@@ -92,14 +93,16 @@ const checkedTask = asyncHandler( async(req, res) => {
 })
 
 const selectPage = asyncHandler( async(req, res) => {
-    const page = req.body.page
-    await Page.findOneAndUpdate(
-        {page},
+    const page = mongoose.Types.ObjectId(req.params.id)
+
+    await Page.findByIdAndUpdate(
+        {_id: page},
         {selected: true})
+
 })
 
 const deselectPage = asyncHandler( async(req, res) => {
-    const user = req.body.user
+    const user = req.params.id
     await Page.updateMany({user},
         {selected: false})
 })

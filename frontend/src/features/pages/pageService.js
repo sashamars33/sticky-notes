@@ -22,9 +22,31 @@ const getPages = async(token, user) => {
     return res.data
 }
 
+const setSelected = async(token, page) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const res = await axios.put(`${API_URL}/${page}/select`, config)
+    return res.data
+}
+
+const resetPages = async(token, user) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const res = await axios.put(`${API_URL}/${user}/deselect`, config)
+    return res.data
+}
+
 const pageService = {
     createPage,
-    getPages
+    getPages,
+    setSelected,
+    resetPages
 }
 
 export default pageService

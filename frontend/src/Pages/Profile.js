@@ -2,8 +2,7 @@ import {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
-import {createPage, getPages, reset} from '../features/pages/pageSlice'
-import Boards from '../components/Boards'
+import {createPage, getPages, setCurrentPage, reset, resetPage, resetAllPages} from '../features/pages/pageSlice'
 import Paper from '@mui/material/Paper'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -20,11 +19,13 @@ const Profile = () => {
 
   const {user} = useSelector((state) => state.auth)
   const { pages, isLoading, isError, isSuccess, message} = useSelector(state => state.pages)
+ 
 
 
 
   const [name, setName] = useState(user.name)
   const [page, setPage] = useState('')
+  const [pageClick, setPageClick] = useState([false, ''])
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -44,7 +45,22 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getPages())
+    dispatch(resetPage())
+    dispatch(resetAllPages())
 }, [dispatch])
+
+useEffect(() => {
+  if(pageClick[0] === true){
+    console.log(pageClick[1])
+    dispatch(setCurrentPage(pageClick[1]))
+    navigate('/board')
+    setPageClick([false, ''])
+  }
+  
+}, [dispatch, setPageClick, pageClick])
+
+
+
 
   const onSubmit = (e) => {
 
@@ -73,9 +89,7 @@ const Profile = () => {
     )
   }
 
-  const navigateTo = () => {
-    navigate('/board')
-  }
+  
 
   return (
     <>
@@ -97,14 +111,13 @@ const Profile = () => {
               {pages.map(page => (
                 <Grid item xs={12} md={4} lg={3} key={page._id}>
                   <Card sx={{bgcolor: 'text.hint', color: 'background.default'}}>
-                    <CardContent style={{margin: '2%'}}>
+                    <CardContent style={{margin: '2%', cursor: 'pointer'}}>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
-                      <h3 style={{padding: '2% 0'}}>{page.topic}</h3>
+                      <h3  onClick={() => setPageClick([true, page._id])} style={{padding: '2% 0'}}>{page.topic}</h3>
                       <HighlightOffIcon/>
                       </Box>
                     </CardContent>
                   </Card>
-                  {/* <Button variant='outlined' style={{margin: 'auto', display: 'flex'}} onClick={navigateTo}><h2>{page.topic}</h2> <ClearIcon style={{justifySelf: 'flex-end'}}/> </Button> */}
                 </Grid>
               ))}
           </Grid>
