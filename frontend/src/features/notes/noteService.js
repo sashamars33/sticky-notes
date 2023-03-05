@@ -12,20 +12,41 @@ const createNote = async(noteData, token) => {
     return res.data
 }
 
-const getNotes = async(token, user, page) => {
+const getNotes = async(token, page) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
-    console.log(page)
-    const res = await axios.get(`${API_URL}/${user}/${page}`, config)
+    const res = await axios.get(`${API_URL}/note/${page}`, config)
+    return res.data
+}
+
+const checkNote = async(token, note) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const res = await axios.put(`${API_URL}/${note}/checked`, config)
+    return res.data
+}
+
+const deleteNote = async(token, note) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const res = await axios.delete(`${API_URL}/${note}/delete-note`, config)
     return res.data
 }
 
 const noteService = {
     createNote,
-    getNotes
+    getNotes,
+    checkNote,
+    deleteNote
 }
 
 export default noteService

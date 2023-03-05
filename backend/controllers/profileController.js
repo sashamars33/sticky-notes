@@ -18,21 +18,11 @@ const getPages = asyncHandler( async (req, res) => {
     res.status(200).json(pages)
 })
 
-const getNotes = asyncHandler( async(res, req) => {
-    console.log(req.params )
+const getNotes = asyncHandler( async(req, res) => {
 
-    const user = await User.findById(req.params.iduser)
-
-    const page = await Page.findById(req.params.idpage)
+    const page = await Page.findById(req.params.id)
 
     const notes = await Note.find({page: page})
-
-
-
-    if(page.user.toString() !== user){
-        res.status(401)
-        throw new Error('Not authorized.')
-    }
 
     res.status(200).json(notes)
 })
@@ -62,7 +52,6 @@ const createPage = asyncHandler( async (req,res) => {
 
 const createNote = asyncHandler( async(req, res) => {
 
-    console.log(req.body)
 
     const user = req.body.user
     const page = req.body.page
@@ -78,22 +67,23 @@ const createNote = asyncHandler( async(req, res) => {
 })
 
 const deletePage = asyncHandler( async(req, res) => {
-    const page = req.body.page
-    await Note.deleteMany({page})
-    await Page.deleteOne({page})
-
-    
+    const page = mongoose.Types.ObjectId(req.params.id)
+    await Note.deleteMany({page: page})
+    await Page.deleteOne({_id: page})   
 })
 
 const deleteNote = asyncHandler( async(req, res) => {
-    const note = req.body.note
-    await Note.deleteOne({note})
+    const note = mongoose.Types.ObjectId(req.params.id)
+    await Note.deleteOne({_id: note})
 })
 
 const checkedTask = asyncHandler( async(req, res) => {
-    const {note, checked} = req.body
+    const id = mongoose.Types.ObjectId(req.params.id)
+    const note = await Note.findById({_id: id})
+    const checked = note.checked
+
     await Note.findOneAndUpdate(
-        {_id: note},
+        {_id: note._id},
         {checked: !checked}
     )
 })

@@ -42,11 +42,22 @@ const resetPages = async(token, user) => {
     return res.data
 }
 
+const deletePage = async(token, page) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const res = await axios.delete(`${API_URL}/${page}/delete-page`, config)
+    return res.data
+}
+
 const pageService = {
     createPage,
     getPages,
     setSelected,
-    resetPages
+    resetPages,
+    deletePage
 }
 
 export default pageService

@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
-import {createNote, getNotes, checkNotes, reset} from '../features/notes/noteSlice'
+import {createNote, getNotes, reset} from '../features/notes/noteSlice'
 import {toast} from 'react-toastify'
 import Paper from '@mui/material/Paper'
 import Card from '@mui/material/Card'
@@ -11,6 +11,8 @@ import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import FormControl from '@mui/material/FormControl'
 import Notes from '../components/Notes'
+import CircularProgress from '@mui/material/CircularProgress'
+
 
 const Board = () => {
 
@@ -58,8 +60,21 @@ const Board = () => {
     }
 
     useEffect(() => {
-        dispatch(getNotes())
-    }, [dispatch])
+        if(page){
+            dispatch(getNotes())
+        }
+    }, [dispatch, page])
+
+
+    if(isLoading || !page){
+        return(
+          <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%', height: '100vh'}} elevation={0} square>
+            <Card style={{display: 'flex', padding: '10%', background: '#00000000'}}>
+              <CircularProgress style={{margin: 'auto'}}/>
+            </Card>
+          </Paper>
+        )
+      }
 
 
   return (
@@ -68,15 +83,15 @@ const Board = () => {
         <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%', height: '100vh'}} elevation={0} square>
         <Card>
             <CardContent>
-                <h3>{page.topic}</h3>
                 <Button variant='outlined' onClick={backToBoards}>Back to Boards</Button>
+                <h2 style={{width: '100%', textAlign: 'center'}}>{page.topic}</h2>
                 <FormControl style={{width: '100%'}}>
                     <TextField variant="filled" label="Add a new note." multiline color="primary" style={{ margin: '1.5% 0'}} type="text" id="password" name="password" onChange={(e) => setNote(e.target.value)}></TextField>
                     <Button variant="outlined" onClick={onSubmit}>Submit</Button>
                 </FormControl>
             </CardContent>
         </Card>
-        <Notes notes={notes} />
+        <Notes notes = {notes}/>
         </Paper>
     </>
   )

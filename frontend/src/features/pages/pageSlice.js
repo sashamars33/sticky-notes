@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import pageService from './pageService'
+import noteService from '../notes/noteService'
 
 const initialState = {
     pages: [],
@@ -55,6 +56,18 @@ export const resetAllPages = createAsyncThunk('pages/resetPages',
         const user = thunkAPI.getState().auth.user._id
         const token = thunkAPI.getState().auth.user.token
         return await pageService.resetPages(token, user)
+    }catch(error){
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const deletePages = createAsyncThunk('pages/deletePage', 
+    async (page, thunkAPI) => {
+    try{
+        const token = thunkAPI.getState().auth.user.token
+        return await pageService.deletePage(token, page)
     }catch(error){
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
 
