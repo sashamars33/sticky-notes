@@ -67,16 +67,14 @@ const createNote = asyncHandler( async(req, res) => {
 })
 
 const deletePage = asyncHandler( async(req, res) => {
-    const page = req.body.page
-    await Note.deleteMany({page})
-    await Page.deleteOne({page})
-
-    
+    const page = mongoose.Types.ObjectId(req.params.id)
+    await Note.deleteMany({page: page})
+    await Page.deleteOne({_id: page})   
 })
 
 const deleteNote = asyncHandler( async(req, res) => {
-    const note = req.body.note
-    await Note.deleteOne({note})
+    const note = mongoose.Types.ObjectId(req.params.id)
+    await Note.deleteOne({_id: note})
 })
 
 const checkedTask = asyncHandler( async(req, res) => {

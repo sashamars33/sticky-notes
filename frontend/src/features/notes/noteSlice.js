@@ -45,6 +45,17 @@ export const checkNote = createAsyncThunk('notes/checkNote',
         }
 })
 
+export const deleteNotes = createAsyncThunk('notes/deleteNotes', 
+    async (note, thunkAPI) => {
+        try{
+            const token = thunkAPI.getState().auth.user.token
+            return await noteService.deleteNote(token, note)
+        }catch(error){
+            const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+            return thunkAPI.rejectWithValue(message)
+        }
+})
+
 
 
 export const noteSlice = createSlice({

@@ -63,6 +63,18 @@ export const resetAllPages = createAsyncThunk('pages/resetPages',
     }
 })
 
+export const deletePages = createAsyncThunk('pages/deletePage', 
+    async (page, thunkAPI) => {
+    try{
+        const token = thunkAPI.getState().auth.user.token
+        return await pageService.deletePage(token, page)
+    }catch(error){
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 
 
 export const pageSlice = createSlice({

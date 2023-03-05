@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
-import {createPage, getPages, setCurrentPage, reset, resetPage, resetAllPages} from '../features/pages/pageSlice'
+import {createPage, getPages, setCurrentPage, reset, resetPage, resetAllPages, deletePages} from '../features/pages/pageSlice'
 import Paper from '@mui/material/Paper'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -25,7 +25,8 @@ const Profile = () => {
 
   const [name, setName] = useState(user.name)
   const [page, setPage] = useState('')
-  const [pageClick, setPageClick] = useState([false, ''])
+  const [pageClick, setPageClick] = useState([false, '']);
+  const [deletePage, setDeletePage] = useState('')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -51,13 +52,17 @@ const Profile = () => {
 
 useEffect(() => {
   if(pageClick[0] === true){
-    console.log(pageClick[1])
     dispatch(setCurrentPage(pageClick[1]))
     navigate('/board')
     setPageClick([false, ''])
   }
+  if(deletePage.length > 0){
+    dispatch(deletePages(deletePage))
+    setDeletePage('')
+    window.location.reload(false)
+  }
   
-}, [dispatch, setPageClick, pageClick])
+}, [dispatch, setPageClick, pageClick, setDeletePage, deletePage])
 
 
 
@@ -114,7 +119,7 @@ useEffect(() => {
                     <CardContent style={{margin: '2%', cursor: 'pointer'}}>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
                       <h3  onClick={() => setPageClick([true, page._id])} style={{padding: '2% 0'}}>{page.topic}</h3>
-                      <HighlightOffIcon/>
+                      <HighlightOffIcon onClick={() => setDeletePage(page._id)}/>
                       </Box>
                     </CardContent>
                   </Card>

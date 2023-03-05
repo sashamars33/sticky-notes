@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {checkNote} from '../features/notes/noteSlice'
+import {checkNote, deleteNotes} from '../features/notes/noteSlice'
 import {useSelector, useDispatch} from 'react-redux'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -15,6 +15,7 @@ const Notes = ({notes}) => {
 
     const dispatch = useDispatch()
     const [note, setNote] = useState('')
+    const [deleteNote, setDeleteNote] = useState('')
 
     useEffect(() => {
         if(note.length > 0){
@@ -22,7 +23,13 @@ const Notes = ({notes}) => {
             setNote('')
             window.location.reload(false)
         }
-    }, [dispatch, note, setNote])
+        if(deleteNote.length > 0){
+            console.log(deleteNote)
+            dispatch(deleteNotes(deleteNote))
+            setDeleteNote('')
+            window.location.reload(false)
+        }
+    }, [dispatch, note, setNote, setDeleteNote, deleteNote])
 
 
 
@@ -41,7 +48,7 @@ const Notes = ({notes}) => {
                     <CardContent style={{margin: '2%', cursor: 'pointer'}}>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
                         {note.checked ? <CheckBoxIcon onClick={() => setNote(note._id)}/> : <CheckBoxOutlineBlankIcon onClick={() => setNote(note._id)} />}
-                        <HighlightOffIcon/>
+                        <HighlightOffIcon onClick={() => setDeleteNote(note._id)}/>
                       </Box>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
                       <p style={{padding: '2% 0', fontSize: '1.25rem'}}>{note.note}</p>
