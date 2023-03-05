@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import pageService from './pageService'
+import noteService from '../notes/noteService'
 
 const initialState = {
     pages: [],

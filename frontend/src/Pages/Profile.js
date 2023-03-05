@@ -97,7 +97,7 @@ useEffect(() => {
     <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%', height: '100vh'}} elevation={0} square>
         <Card>
             <CardContent>
-                <h1>Welcome {name}!</h1>
+                <h1 style={{width: '100%', textAlign: 'center'}}>Welcome {name}!</h1>
                 <h2>Add a new board!</h2>
                 <p>To get started fill out the form below to add a topic board to your profile. Then select the board to begin adding your sticky notes!</p>
                 <FormControl style={{width: '100%'}}>
@@ -108,7 +108,7 @@ useEffect(() => {
         </Card>
         <Box sx={{bgcolor: 'background.paper'}} style={{padding: '2%', margin: '2% 0'}}>
           <Grid container spacing={1}>
-              {pages.map(page => (
+              {pages ? pages.map(page => (
                 <Grid item xs={12} md={4} lg={3} key={page._id}>
                   <Card sx={{bgcolor: 'text.hint', color: 'background.default'}}>
                     <CardContent style={{margin: '2%', cursor: 'pointer'}}>
@@ -119,7 +119,7 @@ useEffect(() => {
                     </CardContent>
                   </Card>
                 </Grid>
-              ))}
+              )) : <h3>No Pages</h3>}
           </Grid>
         </Box>
     </Paper>
