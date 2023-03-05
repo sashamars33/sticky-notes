@@ -2,44 +2,50 @@ const asyncHandler = require('express-async-handler')
 const User = require('../models/User')
 const Page = require('../models/Page')
 const Note = require('../models/Note')
+const mongoose = require('mongoose')
 
 const getPages = asyncHandler( async (req, res) => {
-    const user = await User.findById(req.user.id)
+
+    const user = await User.findById(req.params.id)
 
     if(!user){
         res.status(401)
         throw new Error('User not found.')
     }
 
-    const pages = await Page.find({user: req.user.id})
+    const pages = await Page.find({user: user})
 
     res.status(200).json(pages)
 })
 
-const getNotes = asyncHandler( async(res,req) => {
-    const user = await User.findById(req.user.id)
+const getNotes = asyncHandler( async(res, req) => {
+    console.log(req.params )
 
-    const page = await Page.findById(req.body.page._id)
+    const user = await User.findById(req.params.iduser)
 
-    if(!user){
+    const page = await Page.findById(req.params.idpage)
+
+    const notes = await Note.find({page: page})
+
+
+
+    if(page.user.toString() !== user){
         res.status(401)
-        throw new Error('User not found')
+        throw new Error('Not authorized.')
     }
-
-    const notes = await Note.find({user: user, page: page})
 
     res.status(200).json(notes)
 })
 
 const createPage = asyncHandler( async (req,res) => {
-    const topic = req.body.topic
+    const topic = req.body.page
+    const user = req.body.user
 
     if(!topic){
         res.status(400)
         throw new Error('Please add a board title.')
     }
 
-    const user = await User.findById(req.user.id)
 
     if(!user){
         res.status(401)
@@ -47,7 +53,7 @@ const createPage = asyncHandler( async (req,res) => {
     }
 
     const page = await Page.create({
-        user: req.user.id,
+        user,
         topic
     })
 
@@ -55,9 +61,11 @@ const createPage = asyncHandler( async (req,res) => {
 })
 
 const createNote = asyncHandler( async(req, res) => {
-    const user = req.user.id
 
-    const page = req.body.page._id
+    console.log(req.body)
+
+    const user = req.body.user
+    const page = req.body.page
     const note = req.body.note
 
     const newNote = await Note.create({
@@ -91,16 +99,21 @@ const checkedTask = asyncHandler( async(req, res) => {
 })
 
 const selectPage = asyncHandler( async(req, res) => {
-    const page = req.body.page
-    await Page.findOneAndUpdate(
-        {page},
+    const page = mongoose.Types.ObjectId(req.params.id)
+
+    await Page.findByIdAndUpdate(
+        {_id: page},
         {selected: true})
+
+    const selected = await Page.find({_id: page})
+    res.status(200).json(selected[0])
 })
 
 const deselectPage = asyncHandler( async(req, res) => {
-    const user = req.body.user
+    const user = req.params.id
     await Page.updateMany({user},
         {selected: false})
+    res.status(200).json({})
 })
 
 module.exports = {
