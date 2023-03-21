@@ -99,7 +99,7 @@ useEffect(() => {
   return (
     <>
     <CssBaseline />
-    <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%', height: '100vh'}} elevation={0} square>
+    <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%'}} elevation={0} square>
         <Card>
             <CardContent>
                 <h1 style={{width: '100%', textAlign: 'center'}}>Welcome {name}!</h1>
@@ -111,11 +111,11 @@ useEffect(() => {
                 </FormControl>
             </CardContent>
         </Card>
-        <Box sx={{bgcolor: 'background.paper'}} style={{padding: '2%', margin: '2% 0'}}>
+        <Box sx={{bgcolor: 'background.default'}} style={{padding: '2%', margin: '2% 0'}}>
           <Grid container spacing={1}>
-              {pages ? pages.map(page => (
+              {pages || pages.length === 0 || pages.message ? pages.map(page => (
                 <Grid item xs={12} md={4} lg={3} key={page._id}>
-                  <Card sx={{bgcolor: 'text.hint', color: 'background.default'}}>
+                  <Card sx={{bgcolor: 'text.primary', color: 'background.default'}}>
                     <CardContent style={{margin: '2%', cursor: 'pointer'}}>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
                       <h3  onClick={() => setPageClick([true, page._id])} style={{padding: '2% 0'}}>{page.topic}</h3>

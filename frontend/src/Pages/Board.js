@@ -80,13 +80,13 @@ const Board = () => {
   return (
     <>
      <CssBaseline />
-        <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%', height: '100vh'}} elevation={0} square>
+        <Paper sx={{bgcolor: 'background.default'}} style={{padding: '2% 5%'}} elevation={0} square>
         <Card>
             <CardContent>
                 <Button variant='outlined' onClick={backToBoards}>Back to Boards</Button>
                 <h2 style={{width: '100%', textAlign: 'center'}}>{page.topic}</h2>
                 <FormControl style={{width: '100%'}}>
-                    <TextField variant="filled" label="Add a new note." multiline color="primary" style={{ margin: '1.5% 0'}} type="text" id="password" name="password" onChange={(e) => setNote(e.target.value)}></TextField>
+                    <TextField variant="filled" label="Add a new note." multiline color="primary" style={{ margin: '1.5% 0'}} type="text" id="note" name="note" onChange={(e) => setNote(e.target.value)}></TextField>
                     <Button variant="outlined" onClick={onSubmit}>Submit</Button>
                 </FormControl>
             </CardContent>
