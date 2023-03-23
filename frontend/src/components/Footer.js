@@ -15,12 +15,8 @@ const Footer = () => {
     <Box sx={{bgcolor: 'background.default'}} style={{padding: '5%', display: 'flex', height: 'auto', alignItems: 'center'}}>
         <Box sx={{color: 'primary.main'}} style={{width: '33.33%'}}>
             <h4 style={{fontSize: '1.5rem'}}>Have a question?</h4>
-            <p>Send us a message below!</p>
-            <FormControl style={{width: '100%'}}>
-                <TextField variant="filled" label="Email" multiline color="primary" style={{ margin: '1.5% 0'}} type="text" id="contactEmail" name="contactEmail" ></TextField>
-                <TextField variant="filled" label="Your message here." multiline color="primary" style={{ margin: '2% 0'}} type="text" id="contact" name="contact" ></TextField>
-                <Button variant="outlined" >Submit</Button>
-            </FormControl>
+            <p style={{margin: '3% 0'}}>Send us a message below!</p>
+            <Button variant="outlined" style={{width: '100%'}} onClick={() => window.location = 'mailto:sashamarshalldesigns@gmail.com'}>Message</Button>
         </Box>
         <Box sx={{color: 'primary.main'}} style={{textAlign: 'right', width: '66.66%',  height: '100%', fontSize: '1.2rem'}}>
             <h5 style={{fontSize: '1.2rem'}}>Site Map</h5>
