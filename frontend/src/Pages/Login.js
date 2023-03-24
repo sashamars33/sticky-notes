@@ -29,7 +29,7 @@ const Login = () => {
 
     useEffect(() => {
         if(isError){
-            toast.error(message)
+            alert(message)
         }
 
         if(isSuccess || user){
@@ -75,7 +75,7 @@ const Login = () => {
             <FormControl style={{width: '80%'}}>
                 <TextField variant="filled" label="Email" color="primary" style={{ margin: "2% 0"}} required type="text"  id="email" name="email" value={email} onChange={onChange}>
                 </TextField>
-                <TextField variant="filled" label="Password" color="primary" style={{ margin: "2% 0"}}required type="text"  id="password" name="password" value={password} onChange={onChange}>
+                <TextField variant="filled" label="Password" color="primary" style={{ margin: "2% 0"}}required type="password"  id="password" name="password" value={password} onChange={onChange}>
                 </TextField>
                     <Button variant='outlined' onClick={onSubmit} style={{margin: '2% 0', padding: '2%'}}>Submit</Button>
             </FormControl>

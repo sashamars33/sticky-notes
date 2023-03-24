@@ -26,7 +26,7 @@ const Navigation = () => {
             <Link to='/' style={{textDecoration: 'none', color: '#1c1c1c', textTransform: 'uppercase'}}>Sticky Notes</Link>
   
             {user ? (
-            <Button variant="contained" color="info" onClick={onLogout}>Logout</Button>
+            <Button variant="outlined" color="secondary" onClick={onLogout}>Logout</Button>
             ) : (
               <ButtonGroup>
                 <Button variant='outlined'><Link style={{textDecoration: 'none', color: '#1c1c1c'}} to='/login'>Login</Link></Button>
