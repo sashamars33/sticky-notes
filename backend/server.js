@@ -24,7 +24,6 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/pages', require('./routes/pageRoutes'))
 
-console.log('routes')
 
 
 //Set build as Static Folder
@@ -42,7 +41,5 @@ app.use(errorHandler)
  
 
 app.listen(PORT, () => {
-    if(process.env.ENV === "dev"){
-        console.log("Server is running.")
-    }
+    console.log("Server is running.", PORT)
 })
