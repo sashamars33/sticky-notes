@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@mui/material'
 import { darkTheme } from './themes/darkTheme'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
