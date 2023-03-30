@@ -62,7 +62,7 @@ useEffect(() => {
     window.location.reload(false)
   }
   
-}, [dispatch, setPageClick, pageClick, setDeletePage, deletePage])
+}, [dispatch, navigate, setPageClick, pageClick, setDeletePage, deletePage])
 
 
 

@@ -1,11 +1,10 @@
 import {useState, useEffect} from 'react'
 import {checkNote, deleteNotes} from '../features/notes/noteSlice'
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
