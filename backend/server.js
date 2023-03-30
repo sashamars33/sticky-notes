@@ -22,7 +22,7 @@ app.use('/api/pages', require('./routes/pageRoutes'))
 //Set build as Static Folder
 app.use(express.static(path.join(__dirname, '../frontend/build')))
 
-app.get('*', (req,res) => res.sendFile(path.join(__dirname,'../','frontend','build','index.html')))
+app.get('*', (req,res) => res.sendFile(path.resolve(__dirname,'../frontend/build','index.html')))
 //Error Handler
 app.use(errorHandler)
 
