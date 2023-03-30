@@ -10,35 +10,21 @@ const app = express()
 //Database Connection
 connectDB()
 
-
 app.use(cors())
-
-
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-
-
 
 //Routes
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/pages', require('./routes/pageRoutes'))
 
-
-
 //Set build as Static Folder
 app.use(express.static(path.join(__dirname, '../frontend/build')))
 
-
-
-app.get('*', (req,res) => res.sendFile(__dirname, '../', 'frontend', 'build', 'index.html'))
-
-
-
+app.get('*', (req,res) => res.sendFile(__dirname+'../'+'frontend'+ 'build'+'index.html'))
 //Error Handler
 app.use(errorHandler)
-
- 
 
 app.listen(PORT, () => {
     console.log("Server is running.", PORT)
