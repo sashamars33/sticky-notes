@@ -1,6 +1,4 @@
 import {useState, useEffect} from 'react'
-import {toast} from 'react-toastify'
-import {FaSignInAlt} from 'react-icons/fa'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {login, reset} from '../features/auth/authSlice'
@@ -25,7 +23,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector(state => state.auth)
+    const {user, isError, isSuccess, message} = useSelector(state => state.auth)
 
     useEffect(() => {
         if(isError){
