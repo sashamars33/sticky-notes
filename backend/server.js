@@ -19,7 +19,14 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/pages', require('./routes/pageRoutes'))
 
+app.get('*.js', function (req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    next();
+  })
+  
 //Set build as Static Folder
+
 app.use(express.static(path.join(__dirname, '../frontend/build')))
 
 app.get('*', (req,res) => res.sendFile(path.join('../frontend/build','index.html')))
