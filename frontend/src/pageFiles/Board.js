@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {createNote, getNotes, reset} from '../features/notes/noteSlice'
-import {toast} from 'react-toastify'
 import Paper from '@mui/material/Paper'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -31,7 +30,7 @@ const Board = () => {
 
     useEffect(() => {
         if(isError){
-          toast.error(message)
+          alert(message)
         }
     
         if(isSuccess){
@@ -47,7 +46,7 @@ const Board = () => {
 
         e.preventDefault()
         if(note === ''){
-            toast.error('Please enter a note.')
+            alert('Please enter a note.')
         }else{
             const noteData = {
                 note,
