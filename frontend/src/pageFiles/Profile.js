@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import {createPage, getPages, setCurrentPage, reset, resetPage, resetAllPages, deletePages} from '../features/pages/pageSlice'
 import Paper from '@mui/material/Paper'
 import Card from '@mui/material/Card'
@@ -33,7 +32,7 @@ const Profile = () => {
 
   useEffect(() => {
     if(isError){
-      toast.error(message)
+      alert(message)
     }
 
     if(isSuccess){
@@ -71,7 +70,7 @@ useEffect(() => {
 
       e.preventDefault()
       if(page === ''){
-          toast.error('Please enter a board name.')
+          alert('Please enter a board name.')
       }else{
           const pageData = {
               page,
