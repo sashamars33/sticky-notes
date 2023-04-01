@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import {useSelector, useDispatch} from 'react-redux'
 import {register, reset} from '../features/auth/authSlice'
 import Paper from '@mui/material/Paper'
@@ -52,7 +51,7 @@ const Register = () => {
         e.preventDefault()
 
         if(password !== password2){
-            toast.error('Passwords do not match.')
+            alert('Passwords do not match.')
         }else{
             const userData = {
                 name,

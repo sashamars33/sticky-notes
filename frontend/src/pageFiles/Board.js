@@ -19,7 +19,7 @@ const Board = () => {
     const dispatch = useDispatch()
 
     const {user} = useSelector((state) => state.auth)
-    const { notes, isLoading, isError, isSuccess, message} = useSelector(state => state.notes)
+    const { notes, isLoading, isError, isSuccess, message } = useSelector(state => state.notes)
     const {page} = useSelector((state) => state.pages)
     const [note, setNote] = useState({})
 
