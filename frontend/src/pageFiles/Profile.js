@@ -13,7 +13,7 @@ import FormControl from '@mui/material/FormControl'
 import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import {TiDelete} from 'react-icons/ti'
 
 const Profile = () => {
 
@@ -119,7 +119,7 @@ useEffect(() => {
                     <CardContent style={{margin: '2%', cursor: 'pointer'}}>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
                       <h3  onClick={() => setPageClick([true, page._id])} style={{padding: '2% 0'}}>{page.topic}</h3>
-                      <HighlightOffIcon onClick={() => setDeletePage(page._id)}/>
+                      <TiDelete onClick={() => setDeletePage(page._id)}/>
                       </Box>
                     </CardContent>
                   </Card>
