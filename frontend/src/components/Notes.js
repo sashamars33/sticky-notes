@@ -5,9 +5,10 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import {MdOutlineCheckBoxOutlineBlank} from 'react-icons/md'
+import {MdOutlineCheckBox} from 'react-icons/md'
+import {TiDelete} from 'react-icons/ti'
+
 
 
 const Notes = ({notes}) => {
@@ -46,8 +47,8 @@ const Notes = ({notes}) => {
                   <Card sx={{bgcolor: 'text.hint', color: 'background.default'}}>
                     <CardContent style={{margin: '2%', cursor: 'pointer'}}>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
-                        {note.checked ? <CheckBoxIcon onClick={() => setNote(note._id)}/> : <CheckBoxOutlineBlankIcon onClick={() => setNote(note._id)} />}
-                        <HighlightOffIcon onClick={() => setDeleteNote(note._id)}/>
+                        {note.checked ? <MdOutlineCheckBox onClick={() => setNote(note._id)}/> : <MdOutlineCheckBoxOutlineBlank onClick={() => setNote(note._id)} />}
+                        <TiDelete onClick={() => setDeleteNote(note._id)}/>
                       </Box>
                       <Box style={{display: 'flex', justifyContent: 'space-between'}}>
                       <p style={{padding: '2% 0', fontSize: '1.25rem'}}>{note.note}</p>
@@ -56,40 +57,6 @@ const Notes = ({notes}) => {
                   </Card>
                 </Grid>
               ))}
-        {/* <Grid container spacing={2} style={{padding: '2% 0'}}>
-            <Grid item xs={4}>
-                <Card sx={{bgcolor: 'primary.main', color: 'background.paper'}}>
-                    <CardContent>
-                    <Box>
-
-                    </Box>
-                    
-                    <h3>Note 1</h3>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={4}>
-                <Card sx={{bgcolor: 'primary.main', color: 'background.paper'}}>
-                    <CardContent>
-                    <h3>Note 1</h3>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={4}>
-                <Card sx={{bgcolor: 'primary.main', color: 'background.paper'}}>
-                    <CardContent>
-                    <h3>Note 1</h3>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={4}>
-                <Card sx={{bgcolor: 'primary.main', color: 'background.paper'}}>
-                    <CardContent>
-                    <h3>Note 1</h3>
-                    </CardContent>
-                </Card>
-            </Grid>
-        </Grid> */}
     </Grid>
   )
 }
